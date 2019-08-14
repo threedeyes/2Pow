@@ -1,0 +1,20 @@
+resource app_flags B_MULTIPLE_LAUNCH;
+
+resource app_signature "application/x-vnd.twopow-game";
+
+resource app_version {
+	major  = 1,
+	middle = 0,
+	minor  = 0,
+	variety = 0,
+	internal = 0,
+	short_info = "1.0.0",
+	long_info = "2Pow Game"
+};
+
+resource vector_icon {
+	$"6E6369660303F5BD9F0501040175030A04282550324D592B4B060BBA9A393236"
+	$"2E35392FB826B70D4333413B3246414C502F49443C3A38323F35BA3FB92D0603"
+	$"2F4C5B4B5B4D5B5D535D535D51484C040A020102000A0101001001158603040A"
+	$"000100000A010101202321"
+};
