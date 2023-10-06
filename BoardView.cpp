@@ -21,15 +21,15 @@ BoardView::~BoardView()
 rgb_color
 BoardView::ColorByValue(int value, int element)
 {
-	int colorIndex = (int)log2(value);
+	rgb_color black = {0,0,0,255};
 
-	if (colorIndex < 0) {
-		rgb_color black = {0,0,0,255};
+	int colorIndex = (int)log2(value);	
+
+	if (colorIndex < 0)
 		return black;
-	}
-	if (colorIndex > 11) {
+
+	if (colorIndex > 11)
 		colorIndex = (colorIndex - 12) % 3 + 4;
-	}
 
 	rgb_color tileColors[] = {
 		{0,0,0},			//	1
@@ -70,6 +70,7 @@ BoardView::ColorByValue(int value, int element)
 		color.alpha = 255;
 		return color;
 	}
+	return black;
 }
 
 void
