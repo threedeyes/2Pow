@@ -102,6 +102,7 @@ BoardView::Draw(BRect rect)
 	float bottom = top + boardSize;
 	
 	BRect boardRect(left, top, right, bottom);
+	fBoardRect = boardRect;
 	BRect r1 = boardRect;
 	r1.InsetBy(-10, -10);
 	offscreenView->FillRoundRect(r1, 8, 8);
@@ -286,7 +287,23 @@ BoardView::SetGameManager(GameManager *game)
 void
 BoardView::MouseDown(BPoint p)
 {
-	
+	BMessage msg(B_KEY_DOWN);
+	if (p.x < fBoardRect.left) {
+		msg.AddInt32("key", 97);
+		Window()->PostMessage(&msg);
+	}
+	if (p.x > fBoardRect.right) {
+		msg.AddInt32("key", 99);
+		Window()->PostMessage(&msg);
+	}	
+	if (p.y < fBoardRect.top) {
+		msg.AddInt32("key", 87);
+		Window()->PostMessage(&msg);
+	}	
+	if (p.y > fBoardRect.bottom) {
+		msg.AddInt32("key", 98);
+		Window()->PostMessage(&msg);
+	}
 }
 
 void

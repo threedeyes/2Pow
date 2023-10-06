@@ -32,9 +32,10 @@ class BoardView : public BView
 	virtual void FrameResized(float width, float height);
 
 	GameManager *gameManager;
-	
+
+	BRect		fBoardRect;
 	BView 		*offscreenView;
-	BBitmap		*offscreenBitmap;	
+	BBitmap		*offscreenBitmap;
 };
 
 #endif
