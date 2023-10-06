@@ -47,7 +47,7 @@ class MainWindow : public BWindow {
 		BoardView 	*fBoardView;
 		GameManager	*fGameManager;
 
-		int32		fHighScores;
+		int32		fHighScore;
 };
 
 #endif

@@ -27,28 +27,21 @@ class GameManager {
 				~GameManager();
 		void	Restart(void);
 		bool	NewTile(void);
-		
-		BList*	TileSet(void);
-				
+		BList*	TileSet(void) { return fTileSet; }
 		bool	MoveTilesTo(int dir);
-		
 		Tile*	TileAt(int row, int col);
-		
 		int		CheckAt(int row, int col);
-		
-		int		Status(void);
-		
-		int		Score(void);
-		
+		int		Status(void) { return gameStatus; }
+		void	SetStatus(int status) { gameStatus = status; }
+		int		Score(void) { return fScore; }
+		void	SetScore(int score) { fScore = score; }
+
 	private:
-	
 		bool	checkForMove(void);
-	
+
 		BList 	*fTileSet;
 		int		gameStatus;
-		
 		int		fScore;
-		
 		int		fDropStep;
 };
 

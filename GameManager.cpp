@@ -19,18 +19,6 @@ GameManager::~GameManager()
 	delete fTileSet;
 }
 
-int
-GameManager::Status(void)
-{
-	return gameStatus;
-}
-
-int
-GameManager::Score(void)
-{
-	return fScore;
-}
-
 Tile*
 GameManager::TileAt(int row, int col)
 {
@@ -223,12 +211,6 @@ GameManager::MoveTilesTo(int dir)
 	}
 
 	return tilesMoved;	
-}
-
-BList*
-GameManager::TileSet(void)
-{
-	return fTileSet;
 }
 
 bool

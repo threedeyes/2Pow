@@ -34,11 +34,13 @@ MainWindow::MainWindow(BRect frame, const char* title)
 	
 	SetPulseRate(5000);
 
-	fGameManager->Restart();
-	fGameManager->NewTile();
-	fGameManager->NewTile();
-
 	_loadSettings();
+
+	if (fGameManager->TileSet()->CountItems() == 0) {
+		fGameManager->NewTile();
+		fGameManager->NewTile();
+	}
+
 	_animateTiles();
 }
 
@@ -71,15 +73,31 @@ MainWindow::_loadSettings(void)
 			return;
 
 		BRect _windowRect(100, 100, 100 + 512, 100 + 512);
-		int32 _highScores = 0;
+		int32 _highScore = 0;
+		int32 _score = 0;
+		int32 _tileArray[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 		file.ReadAttr("WindowRect", B_RECT_TYPE, 0, &_windowRect, sizeof(BRect));
-		file.ReadAttr("HighScores", B_INT32_TYPE, 0, &_highScores, sizeof(int32));
+		file.ReadAttr("HighScore", B_INT32_TYPE, 0, &_highScore, sizeof(int32));
+		file.ReadAttr("Score", B_INT32_TYPE, 0, &_score, sizeof(int32));
+		file.ReadAttr("Tiles", B_INT32_TYPE, 0, &_tileArray, sizeof(int32) * 16);
+
+		fGameManager->Restart();
+		for (int row = 0; row < 4; row++) {
+			for (int col = 0; col < 4; col++) {
+				int32 value = _tileArray[col * 4 + row];
+				if (value > 0) {
+					Tile *tile = new Tile(row, col, value);
+					fGameManager->TileSet()->AddItem(tile);
+				}
+			}
+		}
 
 		MoveTo(_windowRect.left, _windowRect.top);
 		ResizeTo(_windowRect.Width(), _windowRect.Height());
 
-		fHighScores = _highScores;
+		fHighScore = _highScore;
+		fGameManager->SetScore(_score);
 
 		file.Unlock();
 	}
@@ -97,9 +115,18 @@ MainWindow::_saveSettings(void)
 			return;
 
 		BRect _windowRect = Frame();
+		int32 _score = fGameManager->Score();
 
 		file.WriteAttr("WindowRect", B_RECT_TYPE, 0, &_windowRect, sizeof(BRect));
-		file.WriteAttr("Iterations", B_INT32_TYPE, 0, &fHighScores, sizeof(int32));
+		file.WriteAttr("Score", B_INT32_TYPE, 0, &_score, sizeof(int32));
+		file.WriteAttr("HighScore", B_INT32_TYPE, 0, &fHighScore, sizeof(int32));
+
+		int32 _tileArray[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		Tile *tileItem;
+		for (int32 i = 0; tileItem = (Tile*)fGameManager->TileSet()->ItemAt(i); i++)
+			_tileArray[tileItem->Col() * 4 + tileItem->Row()] = tileItem->Value();
+
+		file.WriteAttr("Tiles", B_INT32_TYPE, 0, &_tileArray, sizeof(int32) * 16);
 
 		file.Sync();
 		file.Unlock();
