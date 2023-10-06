@@ -20,6 +20,8 @@
 #include <ScrollView.h>
 #include <Button.h>
 
+#include <private/interface/AboutWindow.h>
+
 #include "Application.h"
 #include "MainWindow.h"
 #include "BoardView.h"

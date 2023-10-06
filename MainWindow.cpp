@@ -48,8 +48,12 @@ MainWindow::~MainWindow()
 void
 MainWindow::About(void)
 {
-	BAlert* alert = new BAlert("About", B_UTF8_COPYRIGHT" 2014-2019 Gerasim Troeglazov (3dEyes**)\n\nJoin the numbers and get to the 2048 tile!\n\nBased on 2048 game by Gabriele Cirulli.", "OK");
-	alert->Go(NULL);
+	BAboutWindow* wind = new BAboutWindow("About", APPSIGNATURE);
+	wind->AddCopyright(2014, "Gerasim Troeglazov (3dEyes**)");
+	wind->AddDescription(
+		"Join the numbers and get to the 2048 tile!\n\n"
+		"Based on 2048 game by Gabriele Cirulli.");
+	wind->Show();
 }
 
 void
