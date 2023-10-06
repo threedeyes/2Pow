@@ -9,15 +9,12 @@
 #include <Menu.h>
 #include <MenuBar.h>
 #include <MenuItem.h>
-#include <be/storage/Path.h>
 #include <Entry.h>
-#include <Directory.h>
+#include <File.h>
+#include <Path.h>
+#include <FindDirectory.h>
 #include <String.h>
-#include <TextControl.h>
-#include <ListView.h>
 #include <String.h>
-#include <Bitmap.h>
-#include <ScrollView.h>
 #include <Button.h>
 
 #include <private/interface/AboutWindow.h>
@@ -40,14 +37,17 @@ class MainWindow : public BWindow {
 		void About(void);	
 
 	private:		
-
+		void		_loadSettings(void);
+		void		_saveSettings(void);
 		void		_animateTiles(void);
-		
+
 		BMenu    	*fMenuGame;
 		BMenu 	 	*fMenuHelp;
 		BMenuBar 	*fMenuBar;
 		BoardView 	*fBoardView;
 		GameManager	*fGameManager;
+
+		int32		fHighScores;
 };
 
 #endif

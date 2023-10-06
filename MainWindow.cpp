@@ -37,12 +37,15 @@ MainWindow::MainWindow(BRect frame, const char* title)
 	fGameManager->Restart();
 	fGameManager->NewTile();
 	fGameManager->NewTile();
+
+	_loadSettings();
 	_animateTiles();
 }
 
 
 MainWindow::~MainWindow()
-{	 
+{
+	_saveSettings();
 }
 
 void
@@ -54,6 +57,53 @@ MainWindow::About(void)
 		"Join the numbers and get to the 2048 tile!\n\n"
 		"Based on 2048 game by Gabriele Cirulli.");
 	wind->Show();
+}
+
+void
+MainWindow::_loadSettings(void)
+{
+	BPath path;
+	if (find_directory (B_USER_SETTINGS_DIRECTORY, &path) == B_OK) {
+		path.Append("2Pow");
+		BFile file(path.Path(), B_READ_ONLY);
+
+		if (file.InitCheck() != B_OK || file.Lock() != B_OK)
+			return;
+
+		BRect _windowRect(100, 100, 100 + 512, 100 + 512);
+		int32 _highScores = 0;
+
+		file.ReadAttr("WindowRect", B_RECT_TYPE, 0, &_windowRect, sizeof(BRect));
+		file.ReadAttr("HighScores", B_INT32_TYPE, 0, &_highScores, sizeof(int32));
+
+		MoveTo(_windowRect.left, _windowRect.top);
+		ResizeTo(_windowRect.Width(), _windowRect.Height());
+
+		fHighScores = _highScores;
+
+		file.Unlock();
+	}
+}
+
+void
+MainWindow::_saveSettings(void)
+{
+	BPath path;
+	if (find_directory (B_USER_SETTINGS_DIRECTORY, &path) == B_OK) {
+		path.Append("2Pow");
+
+		BFile file(path.Path(), B_CREATE_FILE | B_ERASE_FILE | B_WRITE_ONLY);
+		if (file.InitCheck() != B_OK || file.Lock() != B_OK)
+			return;
+
+		BRect _windowRect = Frame();
+
+		file.WriteAttr("WindowRect", B_RECT_TYPE, 0, &_windowRect, sizeof(BRect));
+		file.WriteAttr("Iterations", B_INT32_TYPE, 0, &fHighScores, sizeof(int32));
+
+		file.Sync();
+		file.Unlock();
+	}
 }
 
 void

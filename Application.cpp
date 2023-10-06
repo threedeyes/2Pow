@@ -4,7 +4,7 @@
 B2PowApplication::B2PowApplication()
 		  :BApplication(APPSIGNATURE)
 {
-	BRect windowRect(100,100,100+512,100+512);
+	BRect windowRect(100, 100, 100 + 512, 100 + 512);
 	window = new MainWindow(windowRect, "2Pow Game");
 	window->Show();
 }
