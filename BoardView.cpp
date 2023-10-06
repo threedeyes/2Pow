@@ -23,9 +23,12 @@ BoardView::ColorByValue(int value, int element)
 {
 	int colorIndex = (int)log2(value);
 
-	if (colorIndex < 0 || colorIndex > 11) {
+	if (colorIndex < 0) {
 		rgb_color black = {0,0,0,255};
 		return black;
+	}
+	if (colorIndex > 11) {
+		colorIndex = (colorIndex - 12) % 3 + 4;
 	}
 
 	rgb_color tileColors[] = {
@@ -40,7 +43,7 @@ BoardView::ColorByValue(int value, int element)
 		{237, 204, 97},		//	256
 		{237, 200, 80},		//	512
 		{237, 197, 63},		//	1024
-		{236, 194, 46}		//	2048
+		{245, 94, 99}		//	2048
 	};
 	
 	rgb_color textColors[] = {

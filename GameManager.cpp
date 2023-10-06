@@ -88,7 +88,7 @@ GameManager::checkForMove(void)
 bool
 GameManager::MoveTilesTo(int dir)
 {	
-	if (gameStatus != GAME_PLAY)
+	if (gameStatus != GAME_PLAY && gameStatus != GAME_CONT)
 		return false;
 	
 	bool tilesMoved = false;
@@ -209,15 +209,19 @@ GameManager::MoveTilesTo(int dir)
 		
 
 	for (int32 i = 0; tileItem = (Tile*)fTileSet->ItemAt(i); i++) {
-		if (tileItem->Value() == 2048) {
-			gameStatus = GAME_WIN;
+		if (tileItem->Value() == 2048 && gameStatus != GAME_CONT) {
+			BAlert *winAlert = new BAlert("You win!", "Congratulations! You reached the 2048 tile! Do you want to continue playing?", "Yes", "No");
+			if (winAlert->Go() == 1)
+				gameStatus = GAME_WIN;
+			else
+				gameStatus = GAME_CONT;
 		}
 	}
 	
 	if (!checkForMove()) {
 		gameStatus = GAME_OVER;
 	}
-	
+
 	return tilesMoved;	
 }
 

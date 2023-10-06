@@ -5,6 +5,7 @@
 #include <Bitmap.h>
 #include <String.h>
 #include <Font.h>
+#include <Alert.h>
 
 #include "GameManager.h"
 

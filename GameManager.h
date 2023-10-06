@@ -6,6 +6,7 @@
 #include <time.h> 
 
 #include <List.h>
+#include <Alert.h>
 
 #include "Tile.h"
 
@@ -17,6 +18,7 @@
 #define GAME_PLAY	0
 #define GAME_OVER	1
 #define GAME_WIN	2
+#define GAME_CONT	3
 
 
 class GameManager {
