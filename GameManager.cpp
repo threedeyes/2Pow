@@ -9,6 +9,7 @@ GameManager::GameManager()
 	srand (time(NULL));	
 	gameStatus = GAME_PLAY;
 	fScore = 0;
+	fHighScore = 0;
 	fDropStep = 0;
 }
 
@@ -209,6 +210,9 @@ GameManager::MoveTilesTo(int dir)
 	if (!checkForMove()) {
 		gameStatus = GAME_OVER;
 	}
+
+	if (fScore > fHighScore)
+		fHighScore = fScore;
 
 	return tilesMoved;	
 }

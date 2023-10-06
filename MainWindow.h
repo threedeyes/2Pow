@@ -34,7 +34,7 @@ class MainWindow : public BWindow {
 		bool			QuitRequested();
 		
 		
-		void About(void);	
+		void			About(void);
 
 	private:		
 		void		_loadSettings(void);
@@ -46,8 +46,6 @@ class MainWindow : public BWindow {
 		BMenuBar 	*fMenuBar;
 		BoardView 	*fBoardView;
 		GameManager	*fGameManager;
-
-		int32		fHighScore;
 };
 
 #endif

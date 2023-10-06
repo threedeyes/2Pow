@@ -96,8 +96,8 @@ MainWindow::_loadSettings(void)
 		MoveTo(_windowRect.left, _windowRect.top);
 		ResizeTo(_windowRect.Width(), _windowRect.Height());
 
-		fHighScore = _highScore;
 		fGameManager->SetScore(_score);
+		fGameManager->SetHighScore(_highScore);
 
 		file.Unlock();
 	}
@@ -116,10 +116,11 @@ MainWindow::_saveSettings(void)
 
 		BRect _windowRect = Frame();
 		int32 _score = fGameManager->Score();
+		int32 _highScore = fGameManager->HighScore();
 
 		file.WriteAttr("WindowRect", B_RECT_TYPE, 0, &_windowRect, sizeof(BRect));
 		file.WriteAttr("Score", B_INT32_TYPE, 0, &_score, sizeof(int32));
-		file.WriteAttr("HighScore", B_INT32_TYPE, 0, &fHighScore, sizeof(int32));
+		file.WriteAttr("HighScore", B_INT32_TYPE, 0, &_highScore, sizeof(int32));
 
 		int32 _tileArray[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		Tile *tileItem;

@@ -35,6 +35,8 @@ class GameManager {
 		void	SetStatus(int status) { gameStatus = status; }
 		int		Score(void) { return fScore; }
 		void	SetScore(int score) { fScore = score; }
+		int		HighScore(void) { return fHighScore; }
+		void	SetHighScore(int score) { fHighScore = score; }
 
 	private:
 		bool	checkForMove(void);
@@ -42,6 +44,7 @@ class GameManager {
 		BList 	*fTileSet;
 		int		gameStatus;
 		int		fScore;
+		int		fHighScore;
 		int		fDropStep;
 };
 

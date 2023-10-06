@@ -222,7 +222,13 @@ BoardView::Draw(BRect rect)
 	scoreText << "Score: " << gameManager->Score();
 	offscreenView->SetHighColor(70, 70, 50, 200);
 	offscreenView->DrawString(scoreText.String(), BPoint(10, 22 + height.ascent));
-	
+
+	BString highScoreText;
+	highScoreText << "High Score: " << gameManager->HighScore();
+	offscreenView->DrawString(highScoreText.String(),
+		BPoint(offscreenView->Bounds().Width() - 10 - offscreenView->StringWidth(highScoreText.String()),
+		22 + height.ascent));
+
 	if (gameManager->Status() == GAME_OVER) {
 		offscreenView->SetHighColor(0, 0, 0, 150);
 		offscreenView->FillRect(Bounds());
