@@ -255,14 +255,16 @@ BoardView::Draw(BRect rect)
 	
 	BString scoreText;
 	scoreText << "SCORE: " << gameManager->Score();
-	fOffscreenView->SetHighColor(70, 70, 50, 200);
-	fOffscreenView->DrawString(scoreText.String(), BPoint(10, height.ascent));
+	fOffscreenView->SetHighColor(0, 0, 0, 200);
+	fOffscreenView->DrawString(scoreText.String(), BPoint(16, height.ascent));
 
 	BString highScoreText;
 	highScoreText << "BEST: " << gameManager->HighScore();
 	fOffscreenView->DrawString(highScoreText.String(),
 		BPoint(fOffscreenView->Bounds().Width() - 10 - fOffscreenView->StringWidth(highScoreText.String()),
 		height.ascent));
+
+	fOffscreenView->SetDrawingMode(B_OP_ALPHA);
 
 	if (gameManager->Status() == GAME_OVER) {
 		fOffscreenView->SetHighColor(0, 0, 0, 150);
