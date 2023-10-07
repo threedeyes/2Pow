@@ -97,8 +97,8 @@ BoardView::Draw(BRect rect)
 	float boardSize = 0.75 * MIN(fOffscreenView->Bounds().Width(), fOffscreenView->Bounds().Height());
 	fOffscreenView->SetHighColor(187, 173, 160);
 	
-	float left = fOffscreenView->Bounds().Width() / 2 - boardSize / 2;
-	float top = 24 + (fOffscreenView->Bounds().Height()-24) / 2 - boardSize / 2;
+	float left = (fOffscreenView->Bounds().Width() - boardSize) / 2;
+	float top = (fOffscreenView->Bounds().Height() - boardSize) / 2;
 	float right = left + boardSize;
 	float bottom = top + boardSize;
 	
@@ -106,7 +106,7 @@ BoardView::Draw(BRect rect)
 	BRect r1 = fBoardRect;
 	r1.InsetBy(-10, -10);
 	fOffscreenView->FillRoundRect(r1, 8, 8);
-	
+
 	float tileSize = boardSize / 4;
 
 	BFont font;
@@ -114,7 +114,7 @@ BoardView::Draw(BRect rect)
 	font.SetFace(B_BOLD_FACE);
 	fOffscreenView->SetFont(&font);	
 	
-	fOffscreenView->SetDrawingMode(B_OP_ALPHA);
+	fOffscreenView->SetDrawingMode(B_OP_BLEND);
 
 	for (int row = 0; row < 4; row++)
 		for (int col = 0; col < 4; col++) {
@@ -128,38 +128,40 @@ BoardView::Draw(BRect rect)
 			fOffscreenView->StrokeRoundRect(tileRect, 4, 4);
 		}
 
-	BPoint mousePos;
-	uint32 buttons;
-	GetMouse(&mousePos, &buttons);
+	if (gameManager->Status() == GAME_PLAY || gameManager->Status() == GAME_CONT) {
+		BPoint mousePos;
+		uint32 buttons;
+		GetMouse(&mousePos, &buttons, false);
+	
+		fOffscreenView->SetHighColor(204, 192, 179, 150);
+		if (mousePos.x < fBoardRect.left && mousePos.x > 1 &&
+			mousePos.y > fBoardRect.top && mousePos.y < fBoardRect.bottom) {
+				fOffscreenView->FillTriangle(BPoint(fBoardRect.left - 20, fBoardRect.top + 30),
+					BPoint(fBoardRect.left - 20, fBoardRect.bottom - 30),
+					BPoint(fBoardRect.left - 20 - (tileSize / 5), fOffscreenView->Bounds().Height() / 2));
+		}
+		if (mousePos.x > fBoardRect.right && mousePos.x < fOffscreenView->Bounds().right - 1 &&
+			mousePos.y > fBoardRect.top && mousePos.y < fBoardRect.bottom) {
+				fOffscreenView->FillTriangle(BPoint(fBoardRect.right + 20, fBoardRect.top + 30),
+					BPoint(fBoardRect.right + 20, fBoardRect.bottom - 30),
+					BPoint(fBoardRect.right + 20 + (tileSize / 5), fOffscreenView->Bounds().Height() / 2));
+		}
+		if (mousePos.x > fBoardRect.left && mousePos.x < fBoardRect.right &&
+			mousePos.y > 1 && mousePos.y < fBoardRect.top) {
+				fOffscreenView->FillTriangle(BPoint(fBoardRect.left + 30, fBoardRect.top - 20),
+					BPoint(fBoardRect.right - 30, fBoardRect.top - 20),
+					BPoint(fOffscreenView->Bounds().Width() / 2, fBoardRect.top - 20 - (tileSize / 5)));
+		}
+		if (mousePos.x > fBoardRect.left && mousePos.x < fBoardRect.right &&
+			mousePos.y < fOffscreenView->Bounds().bottom - 1 && mousePos.y > fBoardRect.bottom) {
+				fOffscreenView->FillTriangle(BPoint(fBoardRect.left + 30, fBoardRect.bottom + 20),
+					BPoint(fBoardRect.right - 30, fBoardRect.bottom + 20),
+					BPoint(fOffscreenView->Bounds().Width() / 2, fBoardRect.bottom + 20 + (tileSize / 5)));
+		}
+	}
 
-	fOffscreenView->SetHighColor(204, 192, 179, 150);
-	if (mousePos.x < fBoardRect.left && mousePos.x > 10 &&
-		mousePos.y > fBoardRect.top && mousePos.y < fBoardRect.bottom) {
-			fOffscreenView->FillTriangle(BPoint(fBoardRect.left - 20, fBoardRect.top + 30),
-				BPoint(fBoardRect.left - 20, fBoardRect.bottom - 30),
-				BPoint(fBoardRect.left - 20 - (tileSize / 5), fOffscreenView->Bounds().Height() / 2));
-	}
-	if (mousePos.x > fBoardRect.right && mousePos.x < fOffscreenView->Bounds().right - 10 &&
-		mousePos.y > fBoardRect.top && mousePos.y < fBoardRect.bottom) {
-			fOffscreenView->FillTriangle(BPoint(fBoardRect.right + 20, fBoardRect.top + 30),
-				BPoint(fBoardRect.right + 20, fBoardRect.bottom - 30),
-				BPoint(fBoardRect.right + 20 + (tileSize / 5), fOffscreenView->Bounds().Height() / 2));
-	}
-	if (mousePos.x > fBoardRect.left && mousePos.x < fBoardRect.right &&
-		mousePos.y > 30 && mousePos.y < fBoardRect.top) {
-			fOffscreenView->FillTriangle(BPoint(fBoardRect.left + 30, fBoardRect.top - 20),
-				BPoint(fBoardRect.right - 30, fBoardRect.top - 20),
-				BPoint(fOffscreenView->Bounds().Width() / 2, fBoardRect.top - 20 - (tileSize / 5)));
-	}
-	if (mousePos.x > fBoardRect.left && mousePos.x < fBoardRect.right &&
-		mousePos.y < fOffscreenView->Bounds().bottom - 10 && mousePos.y > fBoardRect.bottom) {
-			fOffscreenView->FillTriangle(BPoint(fBoardRect.left + 30, fBoardRect.bottom + 20),
-				BPoint(fBoardRect.right - 30, fBoardRect.bottom + 20),
-				BPoint(fOffscreenView->Bounds().Width() / 2, fBoardRect.bottom + 20 + (tileSize / 5)));
-	}
-	//for (int row = 0; row < 4; row++)
-	//	for (int col = 0; col < 4; col++) {
-	//		Tile *tile = gameManager->TileAt(row, col);
+	fOffscreenView->SetDrawingMode(B_OP_ALPHA);
+	
 	Tile *tile;
 	for (int32 j = 0; j < 2; j++)
 	for (int32 i = 0; tile = (Tile*)gameManager->TileSet()->ItemAt(i); i++) {
@@ -242,8 +244,10 @@ BoardView::Draw(BRect rect)
 				fOffscreenView->StrokeRoundRect(tileRect, 4, 4);
 //			}
 	}
-	
-	font.SetSize(tileSize / 5);
+
+	fOffscreenView->SetDrawingMode(B_OP_BLEND);
+
+	font.SetSize(tileSize / 4);
 	font.SetFace(B_REGULAR_FACE);
 	fOffscreenView->SetFont(&font);	
 	font_height height;
@@ -252,13 +256,13 @@ BoardView::Draw(BRect rect)
 	BString scoreText;
 	scoreText << "SCORE: " << gameManager->Score();
 	fOffscreenView->SetHighColor(70, 70, 50, 200);
-	fOffscreenView->DrawString(scoreText.String(), BPoint(10, 22 + height.ascent));
+	fOffscreenView->DrawString(scoreText.String(), BPoint(10, height.ascent));
 
 	BString highScoreText;
 	highScoreText << "BEST: " << gameManager->HighScore();
 	fOffscreenView->DrawString(highScoreText.String(),
 		BPoint(fOffscreenView->Bounds().Width() - 10 - fOffscreenView->StringWidth(highScoreText.String()),
-		22 + height.ascent));
+		height.ascent));
 
 	if (gameManager->Status() == GAME_OVER) {
 		fOffscreenView->SetHighColor(0, 0, 0, 150);

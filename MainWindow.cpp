@@ -6,32 +6,31 @@
 MainWindow::MainWindow(BRect frame, const char* title)
 	: BWindow(frame, title, B_DOCUMENT_WINDOW, B_ASYNCHRONOUS_CONTROLS | B_QUIT_ON_WINDOW_CLOSE)
 {	
-	BMenuItem *item;
-
-	fGameManager = new GameManager();
-
-	fBoardView = new BoardView(Bounds());	
-	AddChild(fBoardView);
-	
-	fBoardView->SetGameManager(fGameManager);
-
 	fMenuBar = new BMenuBar(BRect(0, 0, Bounds().Width(), 22), "menubar");
 	fMenuGame = new BMenu("Game");
 	fMenuHelp = new BMenu("Help");
 	fMenuGame->AddItem(new BMenuItem("New", new BMessage('NEW_'), 'N'));
 	fMenuGame->AddSeparatorItem();
 	fMenuGame->AddItem(new BMenuItem("Quit", new BMessage('QUIT'), 'Q'));
-	fMenuBar->AddItem(fMenuGame);	
+	fMenuBar->AddItem(fMenuGame);
 	fMenuGame->SetTargetForItems(this);
-	
+
 	fMenuHelp->AddItem(new BMenuItem("About", new BMessage('ABOU')));
-	fMenuBar->AddItem(fMenuHelp);		
+	fMenuBar->AddItem(fMenuHelp);
 	fMenuHelp->SetTargetForItems(this);
 
-	fBoardView->AddChild(fMenuBar);
-	
+	AddChild(fMenuBar);
+
+	BRect boardViewRect = Bounds();
+	boardViewRect.top = fMenuBar->Frame().bottom + 1;
+	fBoardView = new BoardView(boardViewRect);
+	AddChild(fBoardView);
+
+	fGameManager = new GameManager();
+	fBoardView->SetGameManager(fGameManager);
+
 	SetSizeLimits(360, 2048, 390, 2048);
-	
+
 	SetPulseRate(5000);
 
 	_loadSettings();
@@ -75,11 +74,13 @@ MainWindow::_loadSettings(void)
 		BRect _windowRect(100, 100, 100 + 512, 100 + 512);
 		int32 _highScore = 0;
 		int32 _score = 0;
+		int32 _status = GAME_PLAY;
 		int32 _tileArray[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 		file.ReadAttr("WindowRect", B_RECT_TYPE, 0, &_windowRect, sizeof(BRect));
 		file.ReadAttr("HighScore", B_INT32_TYPE, 0, &_highScore, sizeof(int32));
 		file.ReadAttr("Score", B_INT32_TYPE, 0, &_score, sizeof(int32));
+		file.ReadAttr("Status", B_INT32_TYPE, 0, &_status, sizeof(int32));
 		file.ReadAttr("Tiles", B_INT32_TYPE, 0, &_tileArray, sizeof(int32) * 16);
 
 		fGameManager->Restart();
@@ -96,6 +97,7 @@ MainWindow::_loadSettings(void)
 		MoveTo(_windowRect.left, _windowRect.top);
 		ResizeTo(_windowRect.Width(), _windowRect.Height());
 
+		fGameManager->SetStatus(_status);
 		fGameManager->SetScore(_score);
 		fGameManager->SetHighScore(_highScore);
 
@@ -117,10 +119,12 @@ MainWindow::_saveSettings(void)
 		BRect _windowRect = Frame();
 		int32 _score = fGameManager->Score();
 		int32 _highScore = fGameManager->HighScore();
+		int32 _status = fGameManager->Status();
 
 		file.WriteAttr("WindowRect", B_RECT_TYPE, 0, &_windowRect, sizeof(BRect));
 		file.WriteAttr("Score", B_INT32_TYPE, 0, &_score, sizeof(int32));
 		file.WriteAttr("HighScore", B_INT32_TYPE, 0, &_highScore, sizeof(int32));
+		file.WriteAttr("Status", B_INT32_TYPE, 0, &_status, sizeof(int32));
 
 		int32 _tileArray[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		Tile *tileItem;
