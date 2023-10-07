@@ -12,9 +12,9 @@
 BoardView::BoardView(BRect rect)
 	:BView(rect,"BoardView", B_FOLLOW_ALL_SIDES, B_WILL_DRAW|B_FRAME_EVENTS|B_PULSE_NEEDED)
 {
-	offscreenView = new BView(Bounds(), "offscreenView", B_FOLLOW_NONE, 0);
-	offscreenBitmap = new BBitmap(Bounds(), B_RGBA32, true);
-	offscreenBitmap->AddChild(offscreenView);
+	fOffscreenView = new BView(Bounds(), "offscreenView", B_FOLLOW_NONE, 0);
+	fOffscreenBitmap = new BBitmap(Bounds(), B_RGBA32, true);
+	fOffscreenBitmap->AddChild(fOffscreenView);
 	SetViewColor(B_TRANSPARENT_32_BIT);
 	PaintBoard();
 }
@@ -89,73 +89,73 @@ BoardView::MyDraw(void)
 void
 BoardView::Draw(BRect rect)
 {
- 	offscreenBitmap->Lock();
-	offscreenView->SetDrawingMode(B_OP_COPY);
-	offscreenView->SetHighColor(250, 248, 239);
-	offscreenView->FillRect(offscreenView->Bounds());
+ 	fOffscreenBitmap->Lock();
+	fOffscreenView->SetDrawingMode(B_OP_COPY);
+	fOffscreenView->SetHighColor(250, 248, 239);
+	fOffscreenView->FillRect(fOffscreenView->Bounds());
 	
-	float boardSize = 0.75 * MIN(offscreenView->Bounds().Width(), offscreenView->Bounds().Height());
-	offscreenView->SetHighColor(187, 173, 160);
+	float boardSize = 0.75 * MIN(fOffscreenView->Bounds().Width(), fOffscreenView->Bounds().Height());
+	fOffscreenView->SetHighColor(187, 173, 160);
 	
-	float left = offscreenView->Bounds().Width() / 2 - boardSize / 2;
-	float top = 24 + (offscreenView->Bounds().Height()-24) / 2 - boardSize / 2;
+	float left = fOffscreenView->Bounds().Width() / 2 - boardSize / 2;
+	float top = 24 + (fOffscreenView->Bounds().Height()-24) / 2 - boardSize / 2;
 	float right = left + boardSize;
 	float bottom = top + boardSize;
 	
-	boardRect.Set(left, top, right, bottom);
-	BRect r1 = boardRect;
+	fBoardRect.Set(left, top, right, bottom);
+	BRect r1 = fBoardRect;
 	r1.InsetBy(-10, -10);
-	offscreenView->FillRoundRect(r1, 8, 8);
+	fOffscreenView->FillRoundRect(r1, 8, 8);
 	
 	float tileSize = boardSize / 4;
 
 	BFont font;
-	offscreenView->GetFont(&font);
+	fOffscreenView->GetFont(&font);
 	font.SetFace(B_BOLD_FACE);
-	offscreenView->SetFont(&font);	
+	fOffscreenView->SetFont(&font);	
 	
-	offscreenView->SetDrawingMode(B_OP_ALPHA);
+	fOffscreenView->SetDrawingMode(B_OP_ALPHA);
 
 	for (int row = 0; row < 4; row++)
 		for (int col = 0; col < 4; col++) {
-			offscreenView->SetHighColor(204, 192, 179, 255);
+			fOffscreenView->SetHighColor(204, 192, 179, 255);
 			BRect tileRect(col*tileSize, row * tileSize,
 			col*tileSize + (tileSize-1), row * tileSize + (tileSize-1));
 			tileRect.InsetBy(6, 6);
 			tileRect.OffsetBy(left, top);
-			offscreenView->FillRoundRect(tileRect, 4, 4);
-			offscreenView->SetHighColor(70, 70, 50, 200);
-			offscreenView->StrokeRoundRect(tileRect, 4, 4);
+			fOffscreenView->FillRoundRect(tileRect, 4, 4);
+			fOffscreenView->SetHighColor(70, 70, 50, 200);
+			fOffscreenView->StrokeRoundRect(tileRect, 4, 4);
 		}
 
 	BPoint mousePos;
 	uint32 buttons;
 	GetMouse(&mousePos, &buttons);
 
-	offscreenView->SetHighColor(204, 192, 179, 150);
-	if (mousePos.x < boardRect.left && mousePos.x > 10 &&
-		mousePos.y > boardRect.top && mousePos.y < boardRect.bottom) {
-			offscreenView->FillTriangle(BPoint(boardRect.left - 20, boardRect.top + 30),
-				BPoint(boardRect.left - 20, boardRect.bottom - 30),
-				BPoint(boardRect.left - 20 - (tileSize / 5), offscreenView->Bounds().Height() / 2));
+	fOffscreenView->SetHighColor(204, 192, 179, 150);
+	if (mousePos.x < fBoardRect.left && mousePos.x > 10 &&
+		mousePos.y > fBoardRect.top && mousePos.y < fBoardRect.bottom) {
+			fOffscreenView->FillTriangle(BPoint(fBoardRect.left - 20, fBoardRect.top + 30),
+				BPoint(fBoardRect.left - 20, fBoardRect.bottom - 30),
+				BPoint(fBoardRect.left - 20 - (tileSize / 5), fOffscreenView->Bounds().Height() / 2));
 	}
-	if (mousePos.x > boardRect.right && mousePos.x < offscreenView->Bounds().right - 10 &&
-		mousePos.y > boardRect.top && mousePos.y < boardRect.bottom) {
-			offscreenView->FillTriangle(BPoint(boardRect.right + 20, boardRect.top + 30),
-				BPoint(boardRect.right + 20, boardRect.bottom - 30),
-				BPoint(boardRect.right + 20 + (tileSize / 5), offscreenView->Bounds().Height() / 2));
+	if (mousePos.x > fBoardRect.right && mousePos.x < fOffscreenView->Bounds().right - 10 &&
+		mousePos.y > fBoardRect.top && mousePos.y < fBoardRect.bottom) {
+			fOffscreenView->FillTriangle(BPoint(fBoardRect.right + 20, fBoardRect.top + 30),
+				BPoint(fBoardRect.right + 20, fBoardRect.bottom - 30),
+				BPoint(fBoardRect.right + 20 + (tileSize / 5), fOffscreenView->Bounds().Height() / 2));
 	}
-	if (mousePos.x > boardRect.left && mousePos.x < boardRect.right &&
-		mousePos.y > 30 && mousePos.y < boardRect.top) {
-			offscreenView->FillTriangle(BPoint(boardRect.left + 30, boardRect.top - 20),
-				BPoint(boardRect.right - 30, boardRect.top - 20),
-				BPoint(offscreenView->Bounds().Width() / 2, boardRect.top - 20 - (tileSize / 5)));
+	if (mousePos.x > fBoardRect.left && mousePos.x < fBoardRect.right &&
+		mousePos.y > 30 && mousePos.y < fBoardRect.top) {
+			fOffscreenView->FillTriangle(BPoint(fBoardRect.left + 30, fBoardRect.top - 20),
+				BPoint(fBoardRect.right - 30, fBoardRect.top - 20),
+				BPoint(fOffscreenView->Bounds().Width() / 2, fBoardRect.top - 20 - (tileSize / 5)));
 	}
-	if (mousePos.x > boardRect.left && mousePos.x < boardRect.right &&
-		mousePos.y < offscreenView->Bounds().bottom - 10 && mousePos.y > boardRect.bottom) {
-			offscreenView->FillTriangle(BPoint(boardRect.left + 30, boardRect.bottom + 20),
-				BPoint(boardRect.right - 30, boardRect.bottom + 20),
-				BPoint(offscreenView->Bounds().Width() / 2, boardRect.bottom + 20 + (tileSize / 5)));
+	if (mousePos.x > fBoardRect.left && mousePos.x < fBoardRect.right &&
+		mousePos.y < fOffscreenView->Bounds().bottom - 10 && mousePos.y > fBoardRect.bottom) {
+			fOffscreenView->FillTriangle(BPoint(fBoardRect.left + 30, fBoardRect.bottom + 20),
+				BPoint(fBoardRect.right - 30, fBoardRect.bottom + 20),
+				BPoint(fOffscreenView->Bounds().Width() / 2, fBoardRect.bottom + 20 + (tileSize / 5)));
 	}
 	//for (int row = 0; row < 4; row++)
 	//	for (int col = 0; col < 4; col++) {
@@ -186,7 +186,7 @@ BoardView::Draw(BRect rect)
 					color.alpha = 255 - (255 * tile->Step() / (float)ANIMATION_STEPS);
 				}
 				
-				offscreenView->SetHighColor(color);
+				fOffscreenView->SetHighColor(color);
 
 				BRect tileRect(col * tileSize, row * tileSize,
 					col*tileSize + (tileSize-1), row * tileSize + (tileSize-1));
@@ -198,7 +198,7 @@ BoardView::Draw(BRect rect)
 				tileRect.OffsetBy(colDelta, rowDelta);
 				tileRect.InsetBy(6, 6);
 
-				offscreenView->FillRoundRect(tileRect, 4, 4);
+				fOffscreenView->FillRoundRect(tileRect, 4, 4);
 				
 				float fontSize = tile->Value() <= 512 ? tileRect.Width() / 2.9 : tileRect.Width() / 3.7;
 
@@ -209,7 +209,7 @@ BoardView::Draw(BRect rect)
 				//	fontSize *= tile->Step() / (float)(ANIMATION_STEPS);
 
 				font.SetSize(fontSize);
-				offscreenView->SetFont(&font);	
+				fOffscreenView->SetFont(&font);	
 				BRect rectArray[1];
 				font.GetBoundingBoxesAsGlyphs(textVal.String(), 1, B_SCREEN_METRIC, rectArray);
 				float font_height = rectArray[0].Height();
@@ -230,73 +230,73 @@ BoardView::Draw(BRect rect)
 						textVal << tile->Value() * 2;
 					}
 				}
-				offscreenView->SetHighColor(color);
+				fOffscreenView->SetHighColor(color);
 				
-				float stringWidth = offscreenView->StringWidth(textVal.String());
+				float stringWidth = fOffscreenView->StringWidth(textVal.String());
 				BPoint textPos = tileRect.LeftBottom();
 				textPos.x += (tileRect.Width() - stringWidth) / 2;
 				textPos.y -= (tileRect.Height() / 2) - (font_height) / 2;
 			
-				offscreenView->DrawString(textVal.String(), textPos);
-				offscreenView->SetHighColor(70, 70, 50, 200);
-				offscreenView->StrokeRoundRect(tileRect, 4, 4);
+				fOffscreenView->DrawString(textVal.String(), textPos);
+				fOffscreenView->SetHighColor(70, 70, 50, 200);
+				fOffscreenView->StrokeRoundRect(tileRect, 4, 4);
 //			}
 	}
 	
 	font.SetSize(tileSize / 5);
 	font.SetFace(B_REGULAR_FACE);
-	offscreenView->SetFont(&font);	
+	fOffscreenView->SetFont(&font);	
 	font_height height;
 	font.GetHeight(&height);
 	
 	BString scoreText;
 	scoreText << "Score: " << gameManager->Score();
-	offscreenView->SetHighColor(70, 70, 50, 200);
-	offscreenView->DrawString(scoreText.String(), BPoint(10, 22 + height.ascent));
+	fOffscreenView->SetHighColor(70, 70, 50, 200);
+	fOffscreenView->DrawString(scoreText.String(), BPoint(10, 22 + height.ascent));
 
 	BString highScoreText;
 	highScoreText << "High Score: " << gameManager->HighScore();
-	offscreenView->DrawString(highScoreText.String(),
-		BPoint(offscreenView->Bounds().Width() - 10 - offscreenView->StringWidth(highScoreText.String()),
+	fOffscreenView->DrawString(highScoreText.String(),
+		BPoint(fOffscreenView->Bounds().Width() - 10 - fOffscreenView->StringWidth(highScoreText.String()),
 		22 + height.ascent));
 
 	if (gameManager->Status() == GAME_OVER) {
-		offscreenView->SetHighColor(0, 0, 0, 150);
-		offscreenView->FillRect(Bounds());
+		fOffscreenView->SetHighColor(0, 0, 0, 150);
+		fOffscreenView->FillRect(Bounds());
 		
 		float fontSize = tileSize / 3;
 		font.SetSize(fontSize);
 		font.SetFace(B_BOLD_FACE);
-		offscreenView->SetFont(&font);
+		fOffscreenView->SetFont(&font);
 		BString gameOverText("Game over");
-		float stringWidth = offscreenView->StringWidth(gameOverText.String());
-		offscreenView->SetHighColor(255, 255, 255, 200);
-		BPoint textPos = boardRect.LeftBottom();
-				textPos.x += (boardRect.Width() - stringWidth) / 2;
-				textPos.y -= (boardRect.Height() / 2) - (fontSize / 2);		
-		offscreenView->DrawString(gameOverText.String(), textPos);		
+		float stringWidth = fOffscreenView->StringWidth(gameOverText.String());
+		fOffscreenView->SetHighColor(255, 255, 255, 200);
+		BPoint textPos = fBoardRect.LeftBottom();
+				textPos.x += (fBoardRect.Width() - stringWidth) / 2;
+				textPos.y -= (fBoardRect.Height() / 2) - (fontSize / 2);		
+		fOffscreenView->DrawString(gameOverText.String(), textPos);		
 	}
 	
 	if (gameManager->Status() == GAME_WIN) {
-		offscreenView->SetHighColor(0, 0, 0, 150);
-		offscreenView->FillRect(Bounds());
+		fOffscreenView->SetHighColor(0, 0, 0, 150);
+		fOffscreenView->FillRect(Bounds());
 		
 		float fontSize = tileSize / 3;
 		font.SetSize(fontSize);
 		font.SetFace(B_BOLD_FACE);
-		offscreenView->SetFont(&font);
+		fOffscreenView->SetFont(&font);
 		BString gameOverText("You win!");
-		float stringWidth = offscreenView->StringWidth(gameOverText.String());
-		offscreenView->SetHighColor(50, 250, 50, 190);
-		BPoint textPos = boardRect.LeftBottom();
-				textPos.x += (boardRect.Width() - stringWidth) / 2;
-				textPos.y -= (boardRect.Height() / 2) - (fontSize / 2);		
-		offscreenView->DrawString(gameOverText.String(), textPos);		
+		float stringWidth = fOffscreenView->StringWidth(gameOverText.String());
+		fOffscreenView->SetHighColor(50, 250, 50, 190);
+		BPoint textPos = fBoardRect.LeftBottom();
+				textPos.x += (fBoardRect.Width() - stringWidth) / 2;
+				textPos.y -= (fBoardRect.Height() / 2) - (fontSize / 2);		
+		fOffscreenView->DrawString(gameOverText.String(), textPos);		
 	}
-	offscreenView->Sync();
+	fOffscreenView->Sync();
 	SetDrawingMode(B_OP_COPY);
-	DrawBitmap(offscreenBitmap, rect, rect);
-	offscreenBitmap->Unlock();
+	DrawBitmap(fOffscreenBitmap, rect, rect);
+	fOffscreenBitmap->Unlock();
 }
 
 void
@@ -309,19 +309,19 @@ void
 BoardView::MouseDown(BPoint p)
 {
 	BMessage msg(B_KEY_DOWN);
-	if (p.x < boardRect.left) {
+	if (p.x < fBoardRect.left) {
 		msg.AddInt32("key", 97);
 		Window()->PostMessage(&msg);
 	}
-	if (p.x > boardRect.right) {
+	if (p.x > fBoardRect.right) {
 		msg.AddInt32("key", 99);
 		Window()->PostMessage(&msg);
 	}	
-	if (p.y < boardRect.top) {
+	if (p.y < fBoardRect.top) {
 		msg.AddInt32("key", 87);
 		Window()->PostMessage(&msg);
 	}	
-	if (p.y > boardRect.bottom) {
+	if (p.y > fBoardRect.bottom) {
 		msg.AddInt32("key", 98);
 		Window()->PostMessage(&msg);
 	}
@@ -336,12 +336,12 @@ BoardView::MouseMoved(BPoint p, uint32 transit,const BMessage *message)
 void
 BoardView::FrameResized(float width, float height)
 {
-	offscreenBitmap->RemoveChild(offscreenView);
-	delete offscreenBitmap;
+	fOffscreenBitmap->RemoveChild(fOffscreenView);
+	delete fOffscreenBitmap;
 	
-	offscreenView->ResizeTo(width, height);
-	offscreenBitmap = new BBitmap(BRect(0, 0, width, height), B_RGBA32, true);
-	offscreenBitmap->AddChild(offscreenView);	
+	fOffscreenView->ResizeTo(width, height);
+	fOffscreenBitmap = new BBitmap(BRect(0, 0, width, height), B_RGBA32, true);
+	fOffscreenBitmap->AddChild(fOffscreenView);	
 	
 	Invalidate();
 }

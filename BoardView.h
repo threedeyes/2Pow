@@ -37,9 +37,9 @@ class BoardView : public BView
  private:
 	GameManager *gameManager;
 
-	BRect		boardRect;
-	BView 		*offscreenView;
-	BBitmap		*offscreenBitmap;
+	BRect		fBoardRect;
+	BView 		*fOffscreenView;
+	BBitmap		*fOffscreenBitmap;
 };
 
 #endif
