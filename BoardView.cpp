@@ -250,12 +250,12 @@ BoardView::Draw(BRect rect)
 	font.GetHeight(&height);
 	
 	BString scoreText;
-	scoreText << "Score: " << gameManager->Score();
+	scoreText << "SCORE: " << gameManager->Score();
 	fOffscreenView->SetHighColor(70, 70, 50, 200);
 	fOffscreenView->DrawString(scoreText.String(), BPoint(10, 22 + height.ascent));
 
 	BString highScoreText;
-	highScoreText << "High Score: " << gameManager->HighScore();
+	highScoreText << "BEST: " << gameManager->HighScore();
 	fOffscreenView->DrawString(highScoreText.String(),
 		BPoint(fOffscreenView->Bounds().Width() - 10 - fOffscreenView->StringWidth(highScoreText.String()),
 		22 + height.ascent));

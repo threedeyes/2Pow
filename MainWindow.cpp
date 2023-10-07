@@ -30,7 +30,7 @@ MainWindow::MainWindow(BRect frame, const char* title)
 
 	fBoardView->AddChild(fMenuBar);
 	
-	SetSizeLimits(360, 2048, 380, 2048);
+	SetSizeLimits(360, 2048, 390, 2048);
 	
 	SetPulseRate(5000);
 
