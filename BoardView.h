@@ -1,3 +1,9 @@
+/*
+ * Copyright 2014-2023, Gerasim Troeglazov (3dEyes**), 3dEyes@gmail.com.
+ * All rights reserved.
+ * Distributed under the terms of the MIT License.
+ */
+
 #ifndef _BOARD_VIEW_H
 #define _BOARD_VIEW_H
 
@@ -17,23 +23,21 @@ class BoardView : public BView
 {
  public:
 			 BoardView(BRect rect);
- 			~BoardView();
+ 			~BoardView() { };
  	void	SetGameManager(GameManager *game);
- 	rgb_color ColorByValue(int value, int element = COLOR_TILE);
  	void	PaintBoard(void);
  	void 	MyDraw(void);
- private:
+ 	rgb_color ColorByValue(int value, int element = COLOR_TILE);
+
 	virtual void MouseDown(BPoint p);
-	virtual void Pulse(void);
-	
+	virtual void MouseMoved(BPoint p, uint32 transit,const BMessage *message);
 	virtual void Draw(BRect rect);	
-	virtual void AttachedToWindow();
-	
 	virtual void FrameResized(float width, float height);
 
+ private:
 	GameManager *gameManager;
 
-	BRect		fBoardRect;
+	BRect		boardRect;
 	BView 		*offscreenView;
 	BBitmap		*offscreenBitmap;
 };

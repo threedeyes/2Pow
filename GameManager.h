@@ -1,3 +1,9 @@
+/*
+ * Copyright 2014-2023, Gerasim Troeglazov (3dEyes**), 3dEyes@gmail.com.
+ * All rights reserved.
+ * Distributed under the terms of the MIT License.
+ */
+
 #ifndef _GAME_MANAGER_H
 #define _GAME_MANAGER_H
 

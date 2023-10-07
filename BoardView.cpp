@@ -1,3 +1,9 @@
+/*
+ * Copyright 2014-2023, Gerasim Troeglazov (3dEyes**), 3dEyes@gmail.com.
+ * All rights reserved.
+ * Distributed under the terms of the MIT License.
+ */
+
 #include <math.h>
 
 #include "Tile.h"
@@ -11,11 +17,6 @@ BoardView::BoardView(BRect rect)
 	offscreenBitmap->AddChild(offscreenView);
 	SetViewColor(B_TRANSPARENT_32_BIT);
 	PaintBoard();
-}
-
-
-BoardView::~BoardView()
-{
 }
 
 rgb_color
@@ -101,8 +102,7 @@ BoardView::Draw(BRect rect)
 	float right = left + boardSize;
 	float bottom = top + boardSize;
 	
-	BRect boardRect(left, top, right, bottom);
-	fBoardRect = boardRect;
+	boardRect.Set(left, top, right, bottom);
 	BRect r1 = boardRect;
 	r1.InsetBy(-10, -10);
 	offscreenView->FillRoundRect(r1, 8, 8);
@@ -127,7 +127,36 @@ BoardView::Draw(BRect rect)
 			offscreenView->SetHighColor(70, 70, 50, 200);
 			offscreenView->StrokeRoundRect(tileRect, 4, 4);
 		}
-	
+
+	BPoint mousePos;
+	uint32 buttons;
+	GetMouse(&mousePos, &buttons);
+
+	offscreenView->SetHighColor(204, 192, 179, 150);
+	if (mousePos.x < boardRect.left && mousePos.x > 10 &&
+		mousePos.y > boardRect.top && mousePos.y < boardRect.bottom) {
+			offscreenView->FillTriangle(BPoint(boardRect.left - 20, boardRect.top + 30),
+				BPoint(boardRect.left - 20, boardRect.bottom - 30),
+				BPoint(boardRect.left - 20 - (tileSize / 5), offscreenView->Bounds().Height() / 2));
+	}
+	if (mousePos.x > boardRect.right && mousePos.x < offscreenView->Bounds().right - 10 &&
+		mousePos.y > boardRect.top && mousePos.y < boardRect.bottom) {
+			offscreenView->FillTriangle(BPoint(boardRect.right + 20, boardRect.top + 30),
+				BPoint(boardRect.right + 20, boardRect.bottom - 30),
+				BPoint(boardRect.right + 20 + (tileSize / 5), offscreenView->Bounds().Height() / 2));
+	}
+	if (mousePos.x > boardRect.left && mousePos.x < boardRect.right &&
+		mousePos.y > 30 && mousePos.y < boardRect.top) {
+			offscreenView->FillTriangle(BPoint(boardRect.left + 30, boardRect.top - 20),
+				BPoint(boardRect.right - 30, boardRect.top - 20),
+				BPoint(offscreenView->Bounds().Width() / 2, boardRect.top - 20 - (tileSize / 5)));
+	}
+	if (mousePos.x > boardRect.left && mousePos.x < boardRect.right &&
+		mousePos.y < offscreenView->Bounds().bottom - 10 && mousePos.y > boardRect.bottom) {
+			offscreenView->FillTriangle(BPoint(boardRect.left + 30, boardRect.bottom + 20),
+				BPoint(boardRect.right - 30, boardRect.bottom + 20),
+				BPoint(offscreenView->Bounds().Width() / 2, boardRect.bottom + 20 + (tileSize / 5)));
+	}
 	//for (int row = 0; row < 4; row++)
 	//	for (int col = 0; col < 4; col++) {
 	//		Tile *tile = gameManager->TileAt(row, col);
@@ -270,45 +299,38 @@ BoardView::Draw(BRect rect)
 	offscreenBitmap->Unlock();
 }
 
-
-void
-BoardView::AttachedToWindow()
-{
-	
-}
-
 void
 BoardView::SetGameManager(GameManager *game)
 {
 	gameManager = game;
 }
 
-
 void
 BoardView::MouseDown(BPoint p)
 {
 	BMessage msg(B_KEY_DOWN);
-	if (p.x < fBoardRect.left) {
+	if (p.x < boardRect.left) {
 		msg.AddInt32("key", 97);
 		Window()->PostMessage(&msg);
 	}
-	if (p.x > fBoardRect.right) {
+	if (p.x > boardRect.right) {
 		msg.AddInt32("key", 99);
 		Window()->PostMessage(&msg);
 	}	
-	if (p.y < fBoardRect.top) {
+	if (p.y < boardRect.top) {
 		msg.AddInt32("key", 87);
 		Window()->PostMessage(&msg);
 	}	
-	if (p.y > fBoardRect.bottom) {
+	if (p.y > boardRect.bottom) {
 		msg.AddInt32("key", 98);
 		Window()->PostMessage(&msg);
 	}
 }
 
 void
-BoardView::Pulse(void)
+BoardView::MouseMoved(BPoint p, uint32 transit,const BMessage *message)
 {
+	Invalidate();
 }
 
 void

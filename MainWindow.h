@@ -1,6 +1,11 @@
+/*
+ * Copyright 2014-2023, Gerasim Troeglazov (3dEyes**), 3dEyes@gmail.com.
+ * All rights reserved.
+ * Distributed under the terms of the MIT License.
+ */
+
 #ifndef _2048_WINDOW_H
 #define _2048_WINDOW_H
-
 
 #include <Window.h>
 #include <View.h>
@@ -32,8 +37,7 @@ class MainWindow : public BWindow {
 
 		virtual void 	MessageReceived(BMessage *message);
 		bool			QuitRequested();
-		
-		
+
 		void			About(void);
 
 	private:		

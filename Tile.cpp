@@ -1,3 +1,9 @@
+/*
+ * Copyright 2014-2023, Gerasim Troeglazov (3dEyes**), 3dEyes@gmail.com.
+ * All rights reserved.
+ * Distributed under the terms of the MIT License.
+ */
+
 #include "Tile.h"
 
 Tile::Tile(int row, int col, int val)
@@ -26,70 +32,6 @@ Tile::Tile(Tile *tile)
 	created = true;
 }
 
-
-
-Tile::~Tile()
-{
-}
-
-int
-Tile::Value(void)
-{
-	return value;
-}
-
-bool
-Tile::Merged(void)
-{
-	return merged;
-}
-
-bool
-Tile::Created(void)
-{
-	return created;
-}
-
-bool
-Tile::Deleted(void)
-{
-	return deleted;
-}
-
-
-int
-Tile::Row(void)
-{
-	return currentRow;
-}
-
-
-int
-Tile::Col(void)
-{
-	return currentCol;
-}
-
-int
-Tile::PreviousRow(void)
-{
-	return previousRow;
-}
-
-
-int
-Tile::PreviousCol(void)
-{
-	return previousCol;
-}
-
-int
-Tile::Step(void)
-{
-	return step;
-}
-
-
 void
 Tile::DoStep(void)
 {
@@ -98,19 +40,6 @@ Tile::DoStep(void)
 		return;
 	}
 	step --;
-}
-
-void
-Tile::SetValue(int val)
-{
-	value = val;
-}
-
-
-void
-Tile::SetMerged(bool val)
-{
-	merged = val;
 }
 
 void
