@@ -1,21 +1,21 @@
-1	English	application/x-vnd.twopow-game	3162774435
-Help	MainWindow		Справка
-No	GameManager		Нет
-BEST: 	BoardView		РЕКОРД:
-Join the numbers and get to the 2048 tile!\n\nBased on 2048 game by Gabriele Cirulli.	MainWindow		Объедени числа на игровом поле и получи плитку со значением 2048!\n\Основана на игре 2048 написанной Гибриэле Чирулли.
-About	MainWindow		О программе
-Gerasim Troeglazov (3dEyes**)	MainWindow		Герасим Троеглазов (3dEyes**)
-Yes	GameManager		Да
-New game	MainWindow		Новая игра
-You win!	GameManager		Вы выиграли!
-You win!	BoardView		Вы выиграли!
-Game	MainWindow		Игра
-Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		Поздравляем!\nВы получили плитку со значением 2048!\nХотите продолжить игру дальше?
-Quit	MainWindow		Выход
+1	Russian	application/x-vnd.twopow-game	3162774435
 2Pow Game	Application		2Pow Game
-SCORE: 	BoardView		СЧЁТ:
-Game over	BoardView		Вы проиграли
 4 x 4	MainWindow		4 на 4
 5 x 5	MainWindow		5 на 5
 6 x 6	MainWindow		6 на 6
+About	MainWindow		О программе
 Board size	MainWindow		Размер игрового поля
+Game	MainWindow		Игра
+Gerasim Troeglazov (3dEyes**)	MainWindow		Герасим Троеглазов (3dEyes**)
+Help	MainWindow		Справка
+Join the numbers and get to the 2048 tile!\n\nBased on 2048 game by Gabriele Cirulli.	MainWindow		Объедени числа на игровом поле и получи плитку со значением 2048!\n\Основана на игре 2048 написанной Гибриэле Чирулли.
+New game	MainWindow		Новая игра
+Quit	MainWindow		Выход
+BEST: 	BoardView		РЕКОРД:
+Game over	BoardView		Вы проиграли
+SCORE: 	BoardView		СЧЁТ:
+You win!	BoardView		Вы выиграли!
+Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		Поздравляем!\nВы получили плитку со значением 2048!\nХотите продолжить игру дальше?
+No	GameManager		Нет
+Yes	GameManager		Да
+You win!	GameManager		Вы выиграли!
