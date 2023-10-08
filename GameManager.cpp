@@ -212,8 +212,8 @@ GameManager::MoveTilesTo(int dir)
 		if (tileItem->Value() == 2048 && gameStatus != GAME_CONT) {
 			BAlert *winAlert = new BAlert(B_TRANSLATE("You win!"),
 				B_TRANSLATE("Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?"),
-				B_TRANSLATE("Yes"), B_TRANSLATE("No"));
-			if (winAlert->Go() == 1)
+				B_TRANSLATE("Stop"), B_TRANSLATE("Continue"));
+			if (winAlert->Go() == 0)
 				gameStatus = GAME_WIN;
 			else
 				gameStatus = GAME_CONT;
