@@ -1,19 +1,13 @@
-CFLAGS=-O3
-LIBS=-lroot -lbe
-CC=g++
-OBJS = Application.o MainWindow.o GameManager.o BoardView.o Tile.o
-
-
-all: build
-
-build: $(OBJS)
-	$(CC) $(CFLAGS) -o 2Pow $^ $(LIBS)
-	rc Resources.rdef
-	xres -o 2Pow Resources.rsrc
-	mimeset -f 2Pow
-
-.cpp.o:
-	$(CC) $(CFLAGS) -c $^
-
-clean:
-	rm -f 2Pow $(OBJS)
+NAME = 2Pow
+TYPE = APP
+APP_MIME_SIG = application/x-vnd.twopow-game
+SRCS = Application.cpp MainWindow.cpp GameManager.cpp BoardView.cpp Tile.cpp
+RDEFS = Resources.rdef
+LIBS = be localestub
+LOCALES = en ru
+OPTIMIZE := FULL
+SYMBOLS := FLASE
+DEBUGGER := FALSE
+DEVEL_DIRECTORY := \
+	$(shell findpaths -r "makefile_engine" B_FIND_PATH_DEVELOP_DIRECTORY)
+include $(DEVEL_DIRECTORY)/etc/makefile-engine

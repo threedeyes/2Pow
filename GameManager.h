@@ -13,6 +13,7 @@
 
 #include <List.h>
 #include <Alert.h>
+#include <Catalog.h>
 
 #include "Tile.h"
 

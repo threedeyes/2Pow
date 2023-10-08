@@ -9,8 +9,11 @@
 #include "Tile.h"
 #include "BoardView.h"
 
+#undef  B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT          "BoardView"
+
 BoardView::BoardView(BRect rect)
-	:BView(rect,"BoardView", B_FOLLOW_ALL_SIDES, B_WILL_DRAW|B_FRAME_EVENTS|B_PULSE_NEEDED)
+	:BView(rect, "BoardView", B_FOLLOW_ALL_SIDES, B_WILL_DRAW | B_FRAME_EVENTS | B_PULSE_NEEDED)
 {
 	fOffscreenView = new BView(Bounds(), "offscreenView", B_FOLLOW_NONE, 0);
 	fOffscreenBitmap = new BBitmap(Bounds(), B_RGBA32, true);
@@ -254,12 +257,12 @@ BoardView::Draw(BRect rect)
 	font.GetHeight(&height);
 	
 	BString scoreText;
-	scoreText << "SCORE: " << gameManager->Score();
+	scoreText << B_TRANSLATE("SCORE: ") << gameManager->Score();
 	fOffscreenView->SetHighColor(0, 0, 0, 200);
 	fOffscreenView->DrawString(scoreText.String(), BPoint(10, height.ascent + 5));
 
 	BString highScoreText;
-	highScoreText << "BEST: " << gameManager->HighScore();
+	highScoreText << B_TRANSLATE("BEST: ") << gameManager->HighScore();
 	fOffscreenView->DrawString(highScoreText.String(),
 		BPoint(fOffscreenView->Bounds().Width() - 10 - fOffscreenView->StringWidth(highScoreText.String()),
 		height.ascent + 5));
@@ -274,7 +277,7 @@ BoardView::Draw(BRect rect)
 		font.SetSize(fontSize);
 		font.SetFace(B_BOLD_FACE);
 		fOffscreenView->SetFont(&font);
-		BString gameOverText("Game over");
+		BString gameOverText(B_TRANSLATE("Game over"));
 		float stringWidth = fOffscreenView->StringWidth(gameOverText.String());
 		fOffscreenView->SetHighColor(255, 255, 255, 200);
 		BPoint textPos = fBoardRect.LeftBottom();
@@ -291,7 +294,7 @@ BoardView::Draw(BRect rect)
 		font.SetSize(fontSize);
 		font.SetFace(B_BOLD_FACE);
 		fOffscreenView->SetFont(&font);
-		BString gameOverText("You win!");
+		BString gameOverText(B_TRANSLATE("You win!"));
 		float stringWidth = fOffscreenView->StringWidth(gameOverText.String());
 		fOffscreenView->SetHighColor(50, 250, 50, 190);
 		BPoint textPos = fBoardRect.LeftBottom();
@@ -316,19 +319,19 @@ BoardView::MouseDown(BPoint p)
 {
 	BMessage msg(B_KEY_DOWN);
 	if (p.x < fBoardRect.left) {
-		msg.AddInt32("key", 97);
+		msg.AddInt32("key", KEY_LEFT);
 		Window()->PostMessage(&msg);
 	}
 	if (p.x > fBoardRect.right) {
-		msg.AddInt32("key", 99);
+		msg.AddInt32("key", KEY_RIGHT);
 		Window()->PostMessage(&msg);
 	}	
 	if (p.y < fBoardRect.top) {
-		msg.AddInt32("key", 87);
+		msg.AddInt32("key", KEY_UP);
 		Window()->PostMessage(&msg);
 	}	
 	if (p.y > fBoardRect.bottom) {
-		msg.AddInt32("key", 98);
+		msg.AddInt32("key", KEY_DOWN);
 		Window()->PostMessage(&msg);
 	}
 }

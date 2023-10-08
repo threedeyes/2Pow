@@ -1,6 +1,9 @@
 #include "Tile.h"
 #include "GameManager.h"
 
+#undef  B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT          "GameManager"
+
 class Tile;
 
 GameManager::GameManager()
@@ -199,7 +202,9 @@ GameManager::MoveTilesTo(int dir)
 
 	for (int32 i = 0; tileItem = (Tile*)fTileSet->ItemAt(i); i++) {
 		if (tileItem->Value() == 2048 && gameStatus != GAME_CONT) {
-			BAlert *winAlert = new BAlert("You win!", "Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?", "Yes", "No");
+			BAlert *winAlert = new BAlert(B_TRANSLATE("You win!"),
+				B_TRANSLATE("Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?"),
+				B_TRANSLATE("Yes"), B_TRANSLATE("No"));
 			if (winAlert->Go() == 1)
 				gameStatus = GAME_WIN;
 			else

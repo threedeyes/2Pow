@@ -8,6 +8,8 @@
 #define _2POW_APPLICATION_H
 
 #include <Application.h>
+#include <Catalog.h>
+
 #include "MainWindow.h"
 
 #define APPSIGNATURE "application/x-vnd.twopow-game"

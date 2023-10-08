@@ -21,6 +21,7 @@
 #include <String.h>
 #include <String.h>
 #include <Button.h>
+#include <Catalog.h>
 
 #include <private/interface/AboutWindow.h>
 
@@ -29,6 +30,11 @@
 #include "BoardView.h"
 #include "Tile.h"
 #include "GameManager.h"
+
+#define kAboutMsg	'ABOU'
+#define kQuitMsg	'QUIT'
+#define kNewGameMsg	'NEWG'
+
 
 class MainWindow : public BWindow {
 	public:

@@ -12,12 +12,18 @@
 #include <String.h>
 #include <Font.h>
 #include <Alert.h>
+#include <Catalog.h>
 
 #include "GameManager.h"
 
 #define COLOR_TILE	0
 #define COLOR_TEXT	1
 #define COLOR_FRAME 2
+
+#define KEY_LEFT	97
+#define KEY_RIGHT	99
+#define KEY_UP		87
+#define KEY_DOWN	98
 
 class BoardView : public BView
 {

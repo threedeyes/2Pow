@@ -7,11 +7,14 @@
 #include "Application.h"
 #include "MainWindow.h"
 
+#undef  B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT          "Application"
+
 B2PowApplication::B2PowApplication()
 		  :BApplication(APPSIGNATURE)
 {
 	BRect windowRect(100, 100, 100 + 512, 100 + 512);
-	window = new MainWindow(windowRect, "2Pow Game");
+	window = new MainWindow(windowRect, B_TRANSLATE("2Pow Game"));
 	window->Show();
 }
 
