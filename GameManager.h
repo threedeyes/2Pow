@@ -32,6 +32,7 @@ class GameManager {
 	public:
 				GameManager();
 				~GameManager();
+		void	Init(int rows, int cols);
 		void	Restart(void);
 		bool	NewTile(void);
 		BList*	TileSet(void) { return fTileSet; }
@@ -44,6 +45,8 @@ class GameManager {
 		void	SetScore(int score) { fScore = score; }
 		int		HighScore(void) { return fHighScore; }
 		void	SetHighScore(int score) { fHighScore = score; }
+		int		Rows(void) { return fRows; }
+		int		Cols(void) { return fCols; }
 
 	private:
 		bool	checkForMove(void);
@@ -53,6 +56,8 @@ class GameManager {
 		int		fScore;
 		int		fHighScore;
 		int		fDropStep;
+		int		fRows;
+		int		fCols;
 };
 
 #endif

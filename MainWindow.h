@@ -31,10 +31,12 @@
 #include "Tile.h"
 #include "GameManager.h"
 
-#define kAboutMsg	'ABOU'
-#define kQuitMsg	'QUIT'
-#define kNewGameMsg	'NEWG'
-
+#define kAboutMsg			'ABOU'
+#define kQuitMsg			'QUIT'
+#define kNewGameMsg			'NEWG'
+#define kBoardSize4x4Msg	'S4x4'
+#define kBoardSize5x5Msg	'S5x5'
+#define kBoardSize6x6Msg	'S6x6'
 
 class MainWindow : public BWindow {
 	public:
@@ -50,8 +52,10 @@ class MainWindow : public BWindow {
 		void		_loadSettings(void);
 		void		_saveSettings(void);
 		void		_animateTiles(void);
+		void		_updateMenu(void);
 
 		BMenu    	*fMenuGame;
+		BMenu    	*fMenuGameSize;
 		BMenu 	 	*fMenuHelp;
 		BMenuBar 	*fMenuBar;
 		BoardView 	*fBoardView;

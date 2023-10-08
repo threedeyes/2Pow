@@ -110,7 +110,7 @@ BoardView::Draw(BRect rect)
 	r1.InsetBy(-10, -10);
 	fOffscreenView->FillRoundRect(r1, 8, 8);
 
-	float tileSize = boardSize / 4;
+	float tileSize = boardSize / gameManager->Cols();
 
 	BFont font;
 	fOffscreenView->GetFont(&font);
@@ -119,8 +119,8 @@ BoardView::Draw(BRect rect)
 	
 	fOffscreenView->SetDrawingMode(B_OP_BLEND);
 
-	for (int row = 0; row < 4; row++)
-		for (int col = 0; col < 4; col++) {
+	for (int row = 0; row < gameManager->Rows(); row++)
+		for (int col = 0; col < gameManager->Cols(); col++) {
 			fOffscreenView->SetHighColor(204, 192, 179, 255);
 			BRect tileRect(col*tileSize, row * tileSize,
 			col*tileSize + (tileSize-1), row * tileSize + (tileSize-1));

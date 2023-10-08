@@ -1,4 +1,4 @@
-1	Russian	application/x-vnd.twopow-game	4006148926
+1	English	application/x-vnd.twopow-game	3162774435
 Help	MainWindow		Справка
 No	GameManager		Нет
 BEST: 	BoardView		РЕКОРД:
@@ -15,3 +15,7 @@ Quit	MainWindow		Выход
 2Pow Game	Application		2Pow Game
 SCORE: 	BoardView		СЧЁТ:
 Game over	BoardView		Вы проиграли
+4 x 4	MainWindow		4 на 4
+5 x 5	MainWindow		5 на 5
+6 x 6	MainWindow		6 на 6
+Board size	MainWindow		Размер игрового поля

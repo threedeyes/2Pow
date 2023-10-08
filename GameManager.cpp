@@ -14,6 +14,8 @@ GameManager::GameManager()
 	fScore = 0;
 	fHighScore = 0;
 	fDropStep = 0;
+	fCols = 4;
+	fRows = 4;
 }
 
 
@@ -21,6 +23,14 @@ GameManager::~GameManager()
 {
 	Restart();	
 	delete fTileSet;
+}
+
+void
+GameManager::Init(int rows, int cols)
+{
+	fCols = cols;
+	fRows = rows;
+	Restart();
 }
 
 Tile*
@@ -38,7 +48,7 @@ GameManager::TileAt(int row, int col)
 int
 GameManager::CheckAt(int row, int col)
 {
-	if (row > 3 || row < 0 || col > 3 || col < 0)
+	if (row >= fRows || row < 0 || col >= fCols || col < 0)
 		return -1;
 	Tile *tileItem = TileAt(row, col);	
 	if (tileItem == NULL)
@@ -52,7 +62,7 @@ GameManager::CheckAt(int row, int col)
 bool
 GameManager::checkForMove(void)
 {
-	if (fTileSet->CountItems() < 16)
+	if (fTileSet->CountItems() < fCols * fRows)
 		return true;
 	
 	bool possible = false;
@@ -94,8 +104,8 @@ GameManager::MoveTilesTo(int dir)
 	Tile *tileItem;
 		
 	if (dir == TILE_MOVE_BOTTOM) {
-		for (int row = 2; row >= 0; row--) {
-			for (int col = 0; col < 4; col++) {
+		for (int row = fRows - 2; row >= 0; row--) {
+			for (int col = 0; col < fCols; col++) {
 				Tile *src = TileAt(row, col);
 				if (src != NULL) {
 					int targetValue = CheckAt(row + rowShift, col + colShift);
@@ -115,8 +125,8 @@ GameManager::MoveTilesTo(int dir)
 			}
 		}
 	} else if (dir == TILE_MOVE_TOP) {
-		for (int row = 1; row < 4; row++) {
-			for (int col = 0; col < 4; col++) {
+		for (int row = 1; row < fRows; row++) {
+			for (int col = 0; col < fCols; col++) {
 				Tile *src = TileAt(row, col);
 				if (src != NULL) {
 					int targetValue = CheckAt(row + rowShift, col + colShift);
@@ -136,8 +146,8 @@ GameManager::MoveTilesTo(int dir)
 			}
 		}
 	} else if (dir == TILE_MOVE_LEFT) {
-		for (int col = 1; col < 4; col++) {
-			for (int row = 0; row < 4; row++) {
+		for (int col = 1; col < fCols; col++) {
+			for (int row = 0; row < fRows; row++) {
 				Tile *src = TileAt(row, col);
 				if (src != NULL) {
 					int targetValue = CheckAt(row + rowShift, col + colShift);
@@ -156,8 +166,8 @@ GameManager::MoveTilesTo(int dir)
 			}
 		}
 	}  else if (dir == TILE_MOVE_RIGHT) {
-		for (int col = 2; col >= 0; col--) {
-			for (int row = 0; row < 4; row++) {
+		for (int col = fCols - 2; col >= 0; col--) {
+			for (int row = 0; row < fRows; row++) {
 				Tile *src = TileAt(row, col);
 				if (src != NULL) {
 					int targetValue = CheckAt(row + rowShift, col + colShift);
@@ -195,10 +205,8 @@ GameManager::MoveTilesTo(int dir)
 				tileItem->SetMerged(false);
 			}
 		}
-
 		fDropStep = 0;
 	}
-		
 
 	for (int32 i = 0; tileItem = (Tile*)fTileSet->ItemAt(i); i++) {
 		if (tileItem->Value() == 2048 && gameStatus != GAME_CONT) {
@@ -211,7 +219,7 @@ GameManager::MoveTilesTo(int dir)
 				gameStatus = GAME_CONT;
 		}
 	}
-	
+
 	if (!checkForMove()) {
 		gameStatus = GAME_OVER;
 	}
@@ -232,8 +240,8 @@ GameManager::NewTile(void)
 
 	BList *emptyTiles = new BList();
 	
-	for (int row = 0; row < 4; row++)
-		for (int col = 0; col < 4; col++) {
+	for (int row = 0; row < fRows; row++)
+		for (int col = 0; col < fCols; col++) {
 			if (TileAt(row, col) == NULL) {
 				int val = (rand() % 100) <= 90 ? 2 : 4;
 				Tile *tile = new Tile(row, col, val);

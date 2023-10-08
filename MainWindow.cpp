@@ -10,8 +10,13 @@ MainWindow::MainWindow(BRect frame, const char* title)
 {	
 	fMenuBar = new BMenuBar(BRect(0, 0, Bounds().Width(), 22), "menubar");
 	fMenuGame = new BMenu(B_TRANSLATE("Game"));
+	fMenuGameSize = new BMenu(B_TRANSLATE("Board size"));
+	fMenuGameSize->AddItem(new BMenuItem(B_TRANSLATE("4 x 4"), new BMessage(kBoardSize4x4Msg)));
+	fMenuGameSize->AddItem(new BMenuItem(B_TRANSLATE("5 x 5"), new BMessage(kBoardSize5x5Msg)));
+	fMenuGameSize->AddItem(new BMenuItem(B_TRANSLATE("6 x 6"), new BMessage(kBoardSize6x6Msg)));
 	fMenuHelp = new BMenu(B_TRANSLATE("Help"));
 	fMenuGame->AddItem(new BMenuItem(B_TRANSLATE("New game"), new BMessage(kNewGameMsg), 'N'));
+	fMenuGame->AddItem(fMenuGameSize);
 	fMenuGame->AddSeparatorItem();
 	fMenuGame->AddItem(new BMenuItem(B_TRANSLATE("Quit"), new BMessage(kQuitMsg), 'Q'));
 	fMenuBar->AddItem(fMenuGame);
@@ -69,31 +74,44 @@ MainWindow::_loadSettings(void)
 		path.Append("2Pow");
 		BFile file(path.Path(), B_READ_ONLY);
 
-		if (file.InitCheck() != B_OK || file.Lock() != B_OK)
+		if (file.InitCheck() != B_OK || file.Lock() != B_OK) {
+			fGameManager->Init(4, 4);
+			_updateMenu();
 			return;
+		}
 
 		BRect _windowRect(100, 100, 100 + 512, 100 + 512);
 		int32 _highScore = 0;
 		int32 _score = 0;
 		int32 _status = GAME_PLAY;
-		int32 _tileArray[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		int32 _rows = 4;
+		int32 _cols = 4;
 
 		file.ReadAttr("WindowRect", B_RECT_TYPE, 0, &_windowRect, sizeof(BRect));
 		file.ReadAttr("HighScore", B_INT32_TYPE, 0, &_highScore, sizeof(int32));
 		file.ReadAttr("Score", B_INT32_TYPE, 0, &_score, sizeof(int32));
 		file.ReadAttr("Status", B_INT32_TYPE, 0, &_status, sizeof(int32));
-		file.ReadAttr("Tiles", B_INT32_TYPE, 0, &_tileArray, sizeof(int32) * 16);
+		file.ReadAttr("Rows", B_INT32_TYPE, 0, &_rows, sizeof(int32));
+		file.ReadAttr("Cols", B_INT32_TYPE, 0, &_cols, sizeof(int32));
 
-		fGameManager->Restart();
-		for (int row = 0; row < 4; row++) {
-			for (int col = 0; col < 4; col++) {
-				int32 value = _tileArray[col * 4 + row];
+		int32 *_tileArray = new int32[_rows * _cols];
+		memset(_tileArray, 0, sizeof(int32) * _cols * _rows);
+		file.ReadAttr("Tiles", B_INT32_TYPE, 0, _tileArray, sizeof(int32) * _rows * _cols);
+
+		fGameManager->Init(_rows, _cols);
+		_updateMenu();
+
+		for (int row = 0; row < _rows; row++) {
+			for (int col = 0; col < _cols; col++) {
+				int32 value = _tileArray[col * _cols + row];
 				if (value > 0) {
 					Tile *tile = new Tile(row, col, value);
 					fGameManager->TileSet()->AddItem(tile);
 				}
 			}
 		}
+
+		delete [] _tileArray;
 
 		MoveTo(_windowRect.left, _windowRect.top);
 		ResizeTo(_windowRect.Width(), _windowRect.Height());
@@ -121,18 +139,24 @@ MainWindow::_saveSettings(void)
 		int32 _score = fGameManager->Score();
 		int32 _highScore = fGameManager->HighScore();
 		int32 _status = fGameManager->Status();
+		int32 _rows = fGameManager->Rows();
+		int32 _cols = fGameManager->Cols();
 
 		file.WriteAttr("WindowRect", B_RECT_TYPE, 0, &_windowRect, sizeof(BRect));
 		file.WriteAttr("Score", B_INT32_TYPE, 0, &_score, sizeof(int32));
 		file.WriteAttr("HighScore", B_INT32_TYPE, 0, &_highScore, sizeof(int32));
 		file.WriteAttr("Status", B_INT32_TYPE, 0, &_status, sizeof(int32));
+		file.WriteAttr("Rows", B_INT32_TYPE, 0, &_rows, sizeof(int32));
+		file.WriteAttr("Cols", B_INT32_TYPE, 0, &_cols, sizeof(int32));
 
-		int32 _tileArray[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		Tile *tileItem;
-		for (int32 i = 0; tileItem = (Tile*)fGameManager->TileSet()->ItemAt(i); i++)
-			_tileArray[tileItem->Col() * 4 + tileItem->Row()] = tileItem->Value();
+		int32 *_tileArray = new int32[_cols * _rows];
+		memset(_tileArray, 0, sizeof(int32) * _cols * _rows);
+		Tile *_tileItem;
+		for (int32 i = 0; _tileItem = (Tile*)fGameManager->TileSet()->ItemAt(i); i++)
+			_tileArray[_tileItem->Col() * _cols + _tileItem->Row()] = _tileItem->Value();
 
-		file.WriteAttr("Tiles", B_INT32_TYPE, 0, &_tileArray, sizeof(int32) * 16);
+		file.WriteAttr("Tiles", B_INT32_TYPE, 0, _tileArray, sizeof(int32) * _cols * _rows);
+		delete [] _tileArray;
 
 		file.Sync();
 		file.Unlock();
@@ -149,6 +173,14 @@ MainWindow::_animateTiles(void)
 		fBoardView->MyDraw();
 		//snooze(1000000 / (ANIMATION_STEPS * 40));
 	}
+}
+
+void
+MainWindow::_updateMenu(void)
+{
+	fMenuGameSize->FindItem(kBoardSize4x4Msg)->SetMarked(fGameManager->Cols() == 4);
+	fMenuGameSize->FindItem(kBoardSize5x5Msg)->SetMarked(fGameManager->Cols() == 5);
+	fMenuGameSize->FindItem(kBoardSize6x6Msg)->SetMarked(fGameManager->Cols() == 6);
 }
 
 void 
@@ -199,7 +231,34 @@ MainWindow::MessageReceived(BMessage *message)
 			fGameManager->NewTile();
 			_animateTiles();
 			break;
-		}		
+		}
+		case kBoardSize4x4Msg:
+		{
+			fGameManager->Init(4, 4);
+			_updateMenu();
+			fGameManager->NewTile();
+			fGameManager->NewTile();
+			_animateTiles();
+			break;
+		}
+		case kBoardSize5x5Msg:
+		{
+			fGameManager->Init(5, 5);
+			_updateMenu();
+			fGameManager->NewTile();
+			fGameManager->NewTile();
+			_animateTiles();
+			break;
+		}
+		case kBoardSize6x6Msg:
+		{
+			fGameManager->Init(6, 6);
+			_updateMenu();
+			fGameManager->NewTile();
+			fGameManager->NewTile();
+			_animateTiles();
+			break;
+		}
 		case kQuitMsg:
 		{
 			Close();
