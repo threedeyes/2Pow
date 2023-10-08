@@ -2,7 +2,7 @@
 Help	MainWindow		Справка
 No	GameManager		Нет
 BEST: 	BoardView		РЕКОРД:
-Join the numbers and get to the 2048 tile!\n\nBased on 2048 game by Gabriele Cirulli.	MainWindow		Объедени числа на игровом поле и получи плитку со значением 2048!\n\Основана на игре 2048 написанной Гибриэле Чирилли.
+Join the numbers and get to the 2048 tile!\n\nBased on 2048 game by Gabriele Cirulli.	MainWindow		Объедени числа на игровом поле и получи плитку со значением 2048!\n\Основана на игре 2048 написанной Гибриэле Чирулли.
 About	MainWindow		О программе
 Gerasim Troeglazov (3dEyes**)	MainWindow		Герасим Троеглазов (3dEyes**)
 Yes	GameManager		Да
