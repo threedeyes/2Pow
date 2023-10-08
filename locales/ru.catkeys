@@ -1,0 +1,17 @@
+1	Russian	application/x-vnd.twopow-game	4006148926
+Help	MainWindow		Справка
+No	GameManager		Нет
+BEST: 	BoardView		РЕКОРД:
+Join the numbers and get to the 2048 tile!\n\nBased on 2048 game by Gabriele Cirulli.	MainWindow		Объедени числа на игровом поле и получи плитку со значением 2048!\n\Основана на игре 2048 написанной Гибриэле Чирилли.
+About	MainWindow		О программе
+Gerasim Troeglazov (3dEyes**)	MainWindow		Герасим Троеглазов (3dEyes**)
+Yes	GameManager		Да
+New game	MainWindow		Новая игра
+You win!	GameManager		Вы выиграли!
+You win!	BoardView		Вы выиграли!
+Game	MainWindow		Игра
+Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		Поздравляем!\nВы получили плитку со значением 2048!\nХотите продолжить игру дальше?
+Quit	MainWindow		Выход
+2Pow Game	Application		2Pow Game
+SCORE: 	BoardView		СЧЁТ:
+Game over	BoardView		Вы проиграли

@@ -1,0 +1,17 @@
+1	English	application/x-vnd.twopow-game	4006148926
+Help	MainWindow		Help
+No	GameManager		No
+BEST: 	BoardView		BEST: 
+Join the numbers and get to the 2048 tile!\n\nBased on 2048 game by Gabriele Cirulli.	MainWindow		Join the numbers and get to the 2048 tile!\n\nBased on 2048 game by Gabriele Cirulli.
+About	MainWindow		About
+Gerasim Troeglazov (3dEyes**)	MainWindow		Gerasim Troeglazov (3dEyes**)
+Yes	GameManager		Yes
+New game	MainWindow		New game
+You win!	GameManager		You win!
+You win!	BoardView		You win!
+Game	MainWindow		Game
+Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?
+Quit	MainWindow		Quit
+2Pow Game	Application		2Pow Game
+SCORE: 	BoardView		SCORE: 
+Game over	BoardView		Game over

@@ -1,14 +1,14 @@
-resource app_flags B_MULTIPLE_LAUNCH;
+resource app_flags B_SINGLE_LAUNCH;
 
 resource app_signature "application/x-vnd.twopow-game";
 
 resource app_version {
 	major  = 1,
-	middle = 1,
+	middle = 2,
 	minor  = 0,
 	variety = 0,
 	internal = 0,
-	short_info = "1.1.0",
+	short_info = "1.2.0",
 	long_info = "2Pow Game"
 };
 
