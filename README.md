@@ -14,4 +14,4 @@ make bindcatalogs
 2Pow game is also available from [HaikuDepot](https://depot.haiku-os.org/2pow).
 
 ## Adding translations
-If you want to help out by adding more translations, please do so at [Polyglot](https://i18n.kacperkasper.pl/projects/95).
+If you want to help out by adding more translations, please do so at [Polyglot](https://i18n.kacperkasper.pl/projects/47).
