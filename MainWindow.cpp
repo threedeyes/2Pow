@@ -62,7 +62,7 @@ MainWindow::About(void)
 	BAboutWindow* wind = new BAboutWindow(B_TRANSLATE("About"), APPSIGNATURE);
 	wind->AddCopyright(2014, "Gerasim Troeglazov (3dEyes**)");
 	wind->AddDescription(B_TRANSLATE("Add the same-numbered tiles together and get to 2048!\n\n"
-		"Based on the game '2048_ by Gabriele Cirulli."));
+		"Based on the game '2048' by Gabriele Cirulli."));
 	wind->Show();
 }
 

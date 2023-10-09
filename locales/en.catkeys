@@ -1,4 +1,4 @@
-1	English	application/x-vnd.twopow-game	3598951707
+1	English	application/x-vnd.twopow-game	3435518883
 Help	MainWindow		Help
 BEST: 	BoardView		BEST: 
 4 × 4	MainWindow		4 × 4
@@ -12,10 +12,10 @@ New game	MainWindow		New game
 You win!	BoardView		You win!
 Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?
 Game	MainWindow		Game
-Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048_ by Gabriele Cirulli.	MainWindow		Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048_ by Gabriele Cirulli.
 About 2Pow	MainWindow		About 2Pow
 5 × 5	MainWindow		5 × 5
 Quit	MainWindow		Quit
+Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048' by Gabriele Cirulli.	MainWindow		Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048' by Gabriele Cirulli.
 SCORE: 	BoardView		SCORE: 
 Game over	BoardView		Game over
 6 × 6	MainWindow		6 × 6
