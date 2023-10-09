@@ -11,9 +11,9 @@ MainWindow::MainWindow(BRect frame, const char* title)
 	fMenuBar = new BMenuBar(BRect(0, 0, Bounds().Width(), 22), "menubar");
 	fMenuGame = new BMenu(B_TRANSLATE("Game"));
 	fMenuGameSize = new BMenu(B_TRANSLATE("Board size"));
-	fMenuGameSize->AddItem(new BMenuItem(B_TRANSLATE("4 x 4"), new BMessage(kBoardSize4x4Msg)));
-	fMenuGameSize->AddItem(new BMenuItem(B_TRANSLATE("5 x 5"), new BMessage(kBoardSize5x5Msg)));
-	fMenuGameSize->AddItem(new BMenuItem(B_TRANSLATE("6 x 6"), new BMessage(kBoardSize6x6Msg)));
+	fMenuGameSize->AddItem(new BMenuItem(B_TRANSLATE("4 × 4"), new BMessage(kBoardSize4x4Msg)));
+	fMenuGameSize->AddItem(new BMenuItem(B_TRANSLATE("5 × 5"), new BMessage(kBoardSize5x5Msg)));
+	fMenuGameSize->AddItem(new BMenuItem(B_TRANSLATE("6 × 6"), new BMessage(kBoardSize6x6Msg)));
 	fMenuHelp = new BMenu(B_TRANSLATE("Help"));
 	fMenuGame->AddItem(new BMenuItem(B_TRANSLATE("New game"), new BMessage(kNewGameMsg), 'N'));
 	fMenuGame->AddItem(fMenuGameSize);
@@ -22,7 +22,7 @@ MainWindow::MainWindow(BRect frame, const char* title)
 	fMenuBar->AddItem(fMenuGame);
 	fMenuGame->SetTargetForItems(this);
 
-	fMenuHelp->AddItem(new BMenuItem(B_TRANSLATE("About"), new BMessage(kAboutMsg)));
+	fMenuHelp->AddItem(new BMenuItem(B_TRANSLATE("About 2Pow"), new BMessage(kAboutMsg)));
 	fMenuBar->AddItem(fMenuHelp);
 	fMenuHelp->SetTargetForItems(this);
 
@@ -60,9 +60,9 @@ void
 MainWindow::About(void)
 {
 	BAboutWindow* wind = new BAboutWindow(B_TRANSLATE("About"), APPSIGNATURE);
-	wind->AddCopyright(2014, B_TRANSLATE("Gerasim Troeglazov (3dEyes**)"));
-	wind->AddDescription(B_TRANSLATE("Join the numbers and get to the 2048 tile!\n\n"
-		"Based on 2048 game by Gabriele Cirulli."));
+	wind->AddCopyright(2014, "Gerasim Troeglazov (3dEyes**)");
+	wind->AddDescription(B_TRANSLATE("Add the same-numbered tiles together and get to 2048!\n\n"
+		"Based on the game '2048_ by Gabriele Cirulli."));
 	wind->Show();
 }
 
