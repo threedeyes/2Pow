@@ -1,0 +1,21 @@
+1	Friulian	application/x-vnd.twopow-game	3435518883
+2Pow	System name		2Pow
+4 × 4	MainWindow		4 × 4
+5 × 5	MainWindow		5 × 5
+6 × 6	MainWindow		6 × 6
+About	MainWindow		Informazions
+About 2Pow	MainWindow		Informazions su 2Pow
+Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048' by Gabriele Cirulli.	MainWindow		Da dongje lis tessaris cul stes numar e rive al 2048!\n\nBasât sul zûc '2048' di Gabriele Cirulli.
+Board size	MainWindow		Dimension taule
+Game	MainWindow		Zûc
+Help	MainWindow		Jutori
+New game	MainWindow		Gnove partide
+Quit	MainWindow		Jes
+BEST: 	BoardView		MIÔR: 
+Game over	BoardView		Partide terminade
+SCORE: 	BoardView		PONTS: 
+You win!	BoardView		Vitorie!
+Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		Congratulazions!\nTu âs otignût la tessare 2048!\nDesideristu continuâ a zuiâ?
+Continue	GameManager		Continue
+Stop	GameManager		Ferme
+You win!	GameManager		Vitorie!

@@ -1,0 +1,21 @@
+1	French	application/x-vnd.twopow-game	3435518883
+2Pow	System name		2Pow
+4 × 4	MainWindow		4 × 4
+5 × 5	MainWindow		5 × 5
+6 × 6	MainWindow		6 × 6
+About	MainWindow		À propos
+About 2Pow	MainWindow		À propos de  2Pow
+Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048' by Gabriele Cirulli.	MainWindow		Joignez les tuiles portant un nombre identique et arrivez à 2048 !\n\nBasé sur le jeu  '2048' de Gabriele Cirulli.
+Board size	MainWindow		Dimension du plateau
+Game	MainWindow		Partie
+Help	MainWindow		Aide
+New game	MainWindow		Nouvelle partie
+Quit	MainWindow		Quitter
+BEST: 	BoardView		LE MEILLEUR :
+Game over	BoardView		Fin de partie
+SCORE: 	BoardView		SCORE : 
+You win!	BoardView		Vous avez gagné !
+Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		Congratulations !\nVous avez atteint la tuile 2048 !\nVoulez-vous continuer à jouer ?
+Continue	GameManager		Continuer
+Stop	GameManager		Arrêter
+You win!	GameManager		Vous avez gagné !

@@ -5,10 +5,10 @@ resource app_signature "application/x-vnd.twopow-game";
 resource app_version {
 	major  = 1,
 	middle = 2,
-	minor  = 1,
+	minor  = 2,
 	variety = 0,
 	internal = 0,
-	short_info = "1.2.1",
+	short_info = "1.2.2",
 	long_info = "2Pow Game"
 };
 

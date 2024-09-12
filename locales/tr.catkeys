@@ -1,0 +1,21 @@
+1	Turkish	application/x-vnd.twopow-game	3435518883
+2Pow	System name		2Pow
+4 × 4	MainWindow		4 × 4
+5 × 5	MainWindow		5 × 5
+6 × 6	MainWindow		6 × 6
+About	MainWindow		Hakkında
+About 2Pow	MainWindow		2Pow hakkında
+Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048' by Gabriele Cirulli.	MainWindow		Aynı numaralı karoları ekleyin ve 2048'e ulaşın!\n\nGabriele Cirulli tarafından yapılan '2048' oyunu temellidir.
+Board size	MainWindow		Tahta boyutu
+Game	MainWindow		Oyun
+Help	MainWindow		Yardım
+New game	MainWindow		Yeni oyun
+Quit	MainWindow		Çık
+BEST: 	BoardView		EN İYİ: 
+Game over	BoardView		Oyun bitti
+SCORE: 	BoardView		PUAN: 
+You win!	BoardView		Kazandın!
+Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		Tebrikler!\n2048 karoya ulaştınız!\nOynamayı sürdürmek istiyor musunuz?
+Continue	GameManager		Sürdür
+Stop	GameManager		Durdur
+You win!	GameManager		Kazandın!

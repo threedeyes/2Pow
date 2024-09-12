@@ -1,0 +1,21 @@
+1	Sardinian	application/x-vnd.twopow-game	3435518883
+2Pow	System name		2Pow
+4 × 4	MainWindow		4 × 4
+5 × 5	MainWindow		5 × 5
+6 × 6	MainWindow		6 × 6
+About	MainWindow		A subra
+About 2Pow	MainWindow		A subra de  2Pow
+Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048' by Gabriele Cirulli.	MainWindow		Agrega paris is tèsseras cun su matessi nùmeru e crompi 2048!\n\nBasadu a subra de su giogu /"2048/" de Gabriele Cirulli.
+Board size	MainWindow		Mannaria de sa taula
+Game	MainWindow		Giogu
+Help	MainWindow		Agiudu
+New game	MainWindow		Giogu nou
+Quit	MainWindow		Essi
+BEST: 	BoardView		MEGIUS: 
+Game over	BoardView		Partida acabada
+SCORE: 	BoardView		PUNTEGIU: 
+You win!	BoardView		As bintu!
+Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		In ora bona!\nAs cròmpidu sa tèssera 2048!\nCheres sighire a giogare?
+Continue	GameManager		Sighi
+Stop	GameManager		Firma
+You win!	GameManager		As bintu!

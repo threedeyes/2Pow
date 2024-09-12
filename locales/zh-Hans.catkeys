@@ -1,0 +1,21 @@
+1	Chinese (simplified)	application/x-vnd.twopow-game	3435518883
+2Pow	System name		2Pow
+4 × 4	MainWindow		4 × 4
+5 × 5	MainWindow		5 × 5
+6 × 6	MainWindow		6 × 6
+About	MainWindow		关于
+About 2Pow	MainWindow		关于 2Pow
+Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048' by Gabriele Cirulli.	MainWindow		将相同编号的方块加在一起，得到 2048！\n\n基于 Gabriele Cirulli 的游戏 “2048” 。
+Board size	MainWindow		棋盘尺寸
+Game	MainWindow		游戏
+Help	MainWindow		帮助
+New game	MainWindow		新游戏
+Quit	MainWindow		退出
+BEST: 	BoardView		最高: 
+Game over	BoardView		游戏结束 
+SCORE: 	BoardView		成绩: 
+You win!	BoardView		您赢了！
+Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		恭喜您！\n您得到了 2048 方块！\n想继续玩吗？
+Continue	GameManager		继续
+Stop	GameManager		停止
+You win!	GameManager		您赢了！

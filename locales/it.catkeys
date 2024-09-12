@@ -1,0 +1,21 @@
+1	Italian	application/x-vnd.twopow-game	3435518883
+2Pow	System name		2Pow
+4 × 4	MainWindow		4 × 4
+5 × 5	MainWindow		5 × 5
+6 × 6	MainWindow		6 × 6
+About	MainWindow		Informazioni
+About 2Pow	MainWindow		Informazioni su 2Pow
+Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048' by Gabriele Cirulli.	MainWindow		Aggrega le tessere con lo stesso numero e ottieni 2048!\n\nBasato sul gioco \"2048\" di Gabriele Cirulli.
+Board size	MainWindow		Dimensione della scacchiera 
+Game	MainWindow		Partita
+Help	MainWindow		Aiuto
+New game	MainWindow		Nuova partita
+Quit	MainWindow		Esci
+BEST: 	BoardView		MIGLIORE:
+Game over	BoardView		Partita terminata
+SCORE: 	BoardView		PUNTEGGIO:
+You win!	BoardView		Hai vinto!
+Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		Congratulazioni!\nHai raggiunto la tessera 2048!\nVuoi continuare a giocare?
+Continue	GameManager		Continua
+Stop	GameManager		Interrompi
+You win!	GameManager		Hai vinto!

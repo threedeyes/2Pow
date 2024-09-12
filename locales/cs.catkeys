@@ -1,0 +1,21 @@
+1	Czech	application/x-vnd.twopow-game	3435518883
+2Pow	System name		2Pow
+4 × 4	MainWindow		4 × 4
+5 × 5	MainWindow		5 × 5
+6 × 6	MainWindow		6 × 6
+About	MainWindow		O 2Pow
+About 2Pow	MainWindow		O 2Pow
+Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048' by Gabriele Cirulli.	MainWindow		Poskládejte stejný počet políček aby dávali dohromady 2048!\n\nZaloženo na hře  '2048' od Gabriele Cirulli.
+Board size	MainWindow		Velikost hrací desky
+Game	MainWindow		Hra
+Help	MainWindow		Pomoc
+New game	MainWindow		Nová hra
+Quit	MainWindow		Konec
+BEST: 	BoardView		NEJLEPŠÍ: 
+Game over	BoardView		Konec hry
+SCORE: 	BoardView		SKORE:
+You win!	BoardView		Výhrali jste!
+Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		Gratulace!\nDosáhli jste 2048 polí!\nPřejete si znovu pokračovat?
+Continue	GameManager		Pokračovat
+Stop	GameManager		Stop
+You win!	GameManager		Vyhráli jste!

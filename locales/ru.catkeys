@@ -1,14 +1,14 @@
-1	Russian	application/x-vnd.twopow-game	3162774435
-2Pow Game	Application		2Pow Game
-4 x 4	MainWindow		4 на 4
-5 x 5	MainWindow		5 на 5
-6 x 6	MainWindow		6 на 6
+1	Russian	application/x-vnd.twopow-game	3435518883
+2Pow	System name		2Pow
+4 × 4	MainWindow		4 на 4
+5 × 5	MainWindow		5 на 5
+6 × 6	MainWindow		6 на 6
 About	MainWindow		О программе
+About 2Pow	MainWindow		О 2Pow
+Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048' by Gabriele Cirulli.	MainWindow		Сложите одинаковые по значению плитки и получите 2048!\n\nОснована на игре '2048' Габриэле Чирулли.
 Board size	MainWindow		Размер игрового поля
 Game	MainWindow		Игра
-Gerasim Troeglazov (3dEyes**)	MainWindow		Герасим Троеглазов (3dEyes**)
 Help	MainWindow		Справка
-Join the numbers and get to the 2048 tile!\n\nBased on 2048 game by Gabriele Cirulli.	MainWindow		Объедени числа на игровом поле и получи плитку со значением 2048!\n\Основана на игре 2048 написанной Гибриэле Чирулли.
 New game	MainWindow		Новая игра
 Quit	MainWindow		Выход
 BEST: 	BoardView		РЕКОРД:
@@ -16,6 +16,6 @@ Game over	BoardView		Вы проиграли
 SCORE: 	BoardView		СЧЁТ:
 You win!	BoardView		Вы выиграли!
 Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		Поздравляем!\nВы получили плитку со значением 2048!\nХотите продолжить игру дальше?
-No	GameManager		Нет
-Yes	GameManager		Да
+Continue	GameManager		Продолжить
+Stop	GameManager		Хватит
 You win!	GameManager		Вы выиграли!

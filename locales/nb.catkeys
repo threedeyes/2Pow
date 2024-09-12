@@ -1,0 +1,21 @@
+1	Norwegian	application/x-vnd.twopow-game	3435518883
+2Pow	System name		2Pow
+4 × 4	MainWindow		4 × 4
+5 × 5	MainWindow		5 × 5
+6 × 6	MainWindow		6 × 6
+About	MainWindow		Om
+About 2Pow	MainWindow		Om 2Pow
+Add the same-numbered tiles together and get to 2048!\n\nBased on the game '2048' by Gabriele Cirulli.	MainWindow		Legg sammen fliser med samme nummer og nå opp til 2048!\n\nBasert på spillet '2048' av Gabriele Cirulli.
+Board size	MainWindow		Brettstørrelse
+Game	MainWindow		Spill
+Help	MainWindow		Hjelp
+New game	MainWindow		Nytt spill
+Quit	MainWindow		Avslutt
+BEST: 	BoardView		BESTE: 
+Game over	BoardView		Spillet er slutt
+SCORE: 	BoardView		POENGSUM: 
+You win!	BoardView		Du vant!
+Congratulations!\nYou reached the 2048 tile!\nDo you want to continue playing?	GameManager		Gratulerer!\nDu kom til 2048-flisen!\nVil du spille videre?
+Continue	GameManager		Fortsett
+Stop	GameManager		Stopp
+You win!	GameManager		Du vant!
